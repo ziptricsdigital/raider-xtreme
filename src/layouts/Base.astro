@@ -1,7 +1,8 @@
 ---
 /** Base layout — every page gets the utility bar, primary nav and lead-capture footer.
  *  Fonts are self-hosted: npm i @fontsource-variable/barlow-condensed (bundled, no CDN). */
-import '@fontsource-variable/barlow-condensed';
+import '@fontsource/barlow-condensed/400.css';
+import '@fontsource/barlow-condensed/700.css';
 import '../styles/global.css'; // @tailwind base; @tailwind components; @tailwind utilities;
 import 'lite-youtube-embed/src/lite-yt-embed.css'; // npm i lite-youtube-embed — click-to-load YouTube facade
 import UtilityBar from '../components/UtilityBar.astro';
