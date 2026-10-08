@@ -1,4 +1,5 @@
 ---
+import Photo from '../../components/Photo.astro';
 import Base from '../../layouts/Base.astro';
 import ProgramHero from '../../components/ProgramHero.astro';
 import FactStrip from '../../components/FactStrip.astro';
@@ -23,7 +24,7 @@ const videos = [{ id: 'CbGbGVHQo9I', label: 'Air Extreme athlete highlights' }];
         <p class="mb-4 text-lg leading-relaxed text-ink/90 text-pretty">Air Extreme is home to several World Champions and many former National Team members. Our athletes compete locally, nationally and internationally.</p>
         <p class="mb-4 text-lg leading-relaxed text-ink/90 text-pretty">No matter your child’s age or skill level, we have a competitive team for you — offered at both Raider Xtreme and our sister gym, Ready Set Go.</p>
       </div>
-      <img src="/images/air-extreme/trampoline.jpg" loading="lazy" width="800" height="600" alt="Air Extreme athlete twisting high above an in-ground trampoline while her coach watches from the edge" class="aspect-[4/3] w-full rounded-lg bg-bone object-cover" />
+      <Photo src="/images/air-extreme/trampoline.jpg" loading="lazy" width="800" height="600" alt="Air Extreme athlete twisting high above an in-ground trampoline while her coach watches from the edge" class="aspect-[4/3] w-full rounded-lg bg-bone object-cover" />
     </div>
   </Section>
   <Section kicker="Train on" title="Built for air time" tone="bone">

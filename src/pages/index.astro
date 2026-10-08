@@ -1,4 +1,5 @@
 ---
+import Photo from '../components/Photo.astro';
 /** Raider Xtreme — Home. Layout, nav and footer come from Base.astro.
  *  DECAP CMS: src/content/pages/home.md frontmatter feeds hero + the collections below. */
 import Base from '../layouts/Base.astro';
@@ -182,7 +183,7 @@ const facilityStats = [
             </div>
           </div>
           <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] gap-5">
-            <img src={p.image} alt={p.imageAlt} loading="lazy" width="640" height="800" class="aspect-[4/5] w-full rounded-md bg-black/5 object-cover" />
+            <Photo src={p.image} alt={p.imageAlt} loading="lazy" width="640" height="800" class="aspect-[4/5] w-full rounded-md bg-black/5 object-cover" />
             <ul class="border-t border-black/15" aria-label={`${p.title} options`}>
               {p.offerings.map((o) => (
                 <li><a href={o.href} aria-label={`Learn about ${o.label}`} class="flex justify-between gap-3 border-b border-black/15 py-3.5 font-semibold hover:text-scarlet"><span>{o.label}</span><span aria-hidden="true" class="text-scarlet">→</span></a></li>
@@ -213,10 +214,10 @@ const facilityStats = [
         <p class="text-lg leading-relaxed text-white/80 text-pretty">A full-time facility with world-champion choreographers and coaches who teach every skill step by step, spot it, and only move on when your athlete is ready.</p>
       </div>
       <div class="grid gap-4 md:grid-cols-3">
-        <img src="/images/facility/gym-floor.jpg" loading="lazy" width="1600" height="800"
+        <Photo src="/images/facility/gym-floor.jpg" loading="lazy" width="1600" height="800"
              alt="Bright wide view of the Raider Xtreme gym with in-ground trampolines, a 50-foot tumble track and the foam pit"
              class="h-[340px] w-full rounded-lg bg-midnight-soft object-cover md:col-span-2" />
-        <img src="/images/facility/coaches.jpg" loading="lazy" width="800" height="800"
+        <Photo src="/images/facility/coaches.jpg" loading="lazy" width="800" height="800"
              alt="Raider Xtreme coaching staff smiling together on the spring floor in matching team shirts"
              class="h-[340px] w-full rounded-lg bg-midnight-soft object-cover" />
       </div>

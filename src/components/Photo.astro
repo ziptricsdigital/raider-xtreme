@@ -1,0 +1,19 @@
+---
+/** Photo with automatic placeholder.
+ *  If the file exists in /public at build time → normal <img>.
+ *  If not → striped placeholder with the alt text as a label chip (no broken-image icons, no 404s).
+ *  Drop the real photo at the same path and redeploy — it swaps in automatically. */
+import fs from 'node:fs';
+import path from 'node:path';
+interface Props { src: string; alt: string; class?: string; [key: string]: any }
+const { src, alt, class: cls, ...rest } = Astro.props;
+const exists = !!src && fs.existsSync(path.join(process.cwd(), 'public', src.split('?')[0]));
+---
+{exists ? (
+  <img src={src} alt={alt} class={cls} {...rest} />
+) : (
+  <div role="img" aria-label={alt} data-missing-photo={src}
+       class:list={[cls, 'flex items-end overflow-hidden p-3 [background:repeating-linear-gradient(135deg,#E6E3DE_0_12px,#EEECE8_12px_24px)]']}>
+    <span class="max-w-full rounded-sm bg-white px-2 py-1 font-mono text-[11px] uppercase leading-snug text-ink-muted">{alt}</span>
+  </div>
+)}
