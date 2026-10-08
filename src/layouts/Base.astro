@@ -1,8 +1,6 @@
 ---
 /** Base layout — every page gets the utility bar, primary nav and lead-capture footer.
  *  Fonts are self-hosted: npm i @fontsource-variable/barlow-condensed (bundled, no CDN). */
-import '@fontsource/barlow-condensed/400.css';
-import '@fontsource/barlow-condensed/700.css';
 import '../styles/global.css'; // @tailwind base; @tailwind components; @tailwind utilities;
 import 'lite-youtube-embed/src/lite-yt-embed.css'; // npm i lite-youtube-embed — click-to-load YouTube facade
 import UtilityBar from '../components/UtilityBar.astro';
@@ -18,6 +16,9 @@ const { title, description, path = Astro.url.pathname, theme } = Astro.props;
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   <!-- DECAP CMS: page frontmatter → seo.title / seo.description -->
   <title>{title}</title>
   <meta name="description" content={description} />
