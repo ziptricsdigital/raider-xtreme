@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import FactStrip from '../components/FactStrip.astro';
+import Section from '../components/Section.astro';
+import CtaBand from '../components/CtaBand.astro';
+import DiamondList from '../components/DiamondList.astro';
+import InfoCard from '../components/InfoCard.astro';
+import { site, links } from '../data/site';
+const facts = [{ stat: 'Fridays', label: 'Every week' }, { stat: '6–10 PM', label: 'Four hours of play' }, { stat: 'Ages 4–12', label: 'Members & non-members' }, { stat: '$25 / $30', label: 'Cash / credit card' }];
+---
+<Base title="Fun Friday Parents’ Night Out in Lubbock, TX | Raider Xtreme" description="Parents’ night out every Friday, 6–10 PM for ages 4–12. $25 cash / $30 card. Inflatables, foam pit, rope swing, pizza and more in Lubbock.">
+  <PageHero crumbs={[{ label: 'Party & Play', href: '/parties' }, { label: 'Fun Friday' }]} kicker="Parents’ night out" title="Fun" accent="Friday"
+    intro="Four hours of supervised gym play for the kids. A Friday night off for you."
+    ctas={[{ label: `Call ${site.phone}`, href: site.phoneHref, variant: 'outline' }]} />
+  <FactStrip facts={facts} />
+  <Section kicker="How it works" title="Drop in, play hard">
+    <div class="grid items-start gap-8 md:grid-cols-2">
+      <div>
+        <p class="mb-4 text-lg leading-relaxed text-ink/90 text-pretty">Every Friday from 6:00 to 10:00 PM, kids ages 4–12 get the run of the gym — inflatables, games, free play, rope swing and foam pit — with pizza and concessions on site. Open to non-members.</p>
+        <!-- DECAP CMS: page.pricing -->
+        <p class="mb-4 text-lg leading-relaxed text-ink/90 text-pretty"><strong>$25 cash or $30 credit card</strong> per child. A parent must sign in at the front desk in person on arrival.</p>
+      </div>
+      <img src="/images/fun-friday/foam-pit.jpg" loading="lazy" width="800" height="600" alt="Kids laughing as they jump into the foam pit during Fun Friday night at Raider Xtreme" class="aspect-[4/3] w-full rounded-lg bg-bone object-cover" />
+    </div>
+  </Section>
+  <Section kicker="What they’ll do" title="The whole gym" tone="bone">
+    <DiamondList items={['Inflatables', 'Games &amp; free play', 'Rope swing', 'Foam pit', 'Pizza &amp; concessions', 'Staff supervision all night']} />
+  </Section>
+  <CtaBand title="See you Friday" text="Questions before your first Fun Friday? Give us a call."
+    primary={{ label: `Call ${site.phone}`, href: site.phoneHref }} secondary={{ label: 'Send a Message', href: '#contact' }} />
+</Base>

@@ -1,0 +1,39 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProgramHero from '../../components/ProgramHero.astro';
+import FactStrip from '../../components/FactStrip.astro';
+import Section from '../../components/Section.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import DiamondList from '../../components/DiamondList.astro';
+import InfoCard from '../../components/InfoCard.astro';
+import { site, links } from '../../data/site';
+const facts = [{ stat: '120+ yrs', label: 'Combined coaching experience' }, { stat: 'Beginner → elite', label: 'Competitive levels for all' }, { stat: 'Worldwide', label: 'Local, national & international meets' }, { stat: 'Champions', label: 'World champions & national team alumni' }];
+/* DECAP CMS: Videos collection (filter: program = air-extreme) → YouTube IDs */
+/* Add more as { id, label } — grid grows automatically (legacy page had 10). */
+const videos = [{ id: 'CbGbGVHQo9I', label: 'Air Extreme athlete highlights' }];
+---
+<Base theme="air" title="Air Extreme Tumbling & Trampoline Teams in Lubbock | Raider Xtreme" description="Lubbock’s leading competitive tumbling and trampoline program. 120+ years of combined coaching, beginner to elite, home to world champions.">
+  <ProgramHero variant="mark" crumbs={[{ label: 'Competitive', href: '/competitive' }, { label: 'Air Extreme' }]} kicker="Competitive trampoline &amp; tumbling" title="Air" accent="Extreme" logo={{ src: '/images/air-extreme-logo.png', alt: 'Air Extreme', width: 586, height: 470 }}
+    intro="Lubbock’s leading tumbling and trampoline program, from first bounce to elite. Designed to build confidence, self-esteem and discipline."
+    ctas={[{ label: 'Try a T&T Class', href: links.enrollClasses, external: true }, { label: 'Ask About Teams', href: '#contact', variant: 'outline' }]} />
+  <FactStrip facts={facts} />
+  <Section kicker="The program" title="Home of champions">
+    <div class="grid items-start gap-8 md:grid-cols-2">
+      <div>
+        <p class="mb-4 text-lg leading-relaxed text-ink/90 text-pretty">Air Extreme is home to several World Champions and many former National Team members. Our athletes compete locally, nationally and internationally.</p>
+        <p class="mb-4 text-lg leading-relaxed text-ink/90 text-pretty">No matter your child’s age or skill level, we have a competitive team for you — offered at both Raider Xtreme and our sister gym, Ready Set Go.</p>
+      </div>
+      <img src="/images/air-extreme/trampoline.jpg" loading="lazy" width="800" height="600" alt="Air Extreme athlete twisting high above an in-ground trampoline while her coach watches from the edge" class="aspect-[4/3] w-full rounded-lg bg-bone object-cover" />
+    </div>
+  </Section>
+  <Section kicker="Train on" title="Built for air time" tone="bone">
+    <DiamondList items={['4 in-ground trampolines', '50 ft in-ground &amp; above-ground tumble tracks', '11 ft foam pit with rope swing', 'Open spring-floor training space']} />
+  </Section>
+  <Section kicker="Watch" title="Air Extreme in action">
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {videos.map((v) => <lite-youtube videoid={v.id} playlabel={`Play: ${v.label}`} class="aspect-video w-full overflow-hidden rounded-lg bg-midnight"></lite-youtube>)}
+    </div>
+  </Section>
+  <CtaBand title="Get airborne" text="Start with a weekly T&T class, or talk to our coaches about team placement."
+    primary={{ label: 'Enroll in T&T', href: links.enrollClasses, external: true }} secondary={{ label: 'Contact a Coach', href: '#contact' }} />
+</Base>

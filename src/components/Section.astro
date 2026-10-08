@@ -1,0 +1,15 @@
+---
+/** Two-track content section: kicker + h2 on the left, slotted body on the right. */
+interface Props { id?: string; kicker: string; title: string; tone?: 'white' | 'bone' }
+const { id, kicker, title, tone = 'white' } = Astro.props;
+const hid = `${id ?? title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-heading`;
+---
+<section id={id} aria-labelledby={hid} class:list={['py-[88px]', tone === 'bone' ? 'bg-bone' : 'bg-white']}>
+  <div class="mx-auto grid max-w-site gap-x-16 gap-y-8 px-6 lg:grid-cols-3">
+    <div class="max-w-sm">
+      <p class="mb-2.5 text-xs font-bold uppercase tracking-[0.14em] text-scarlet">{kicker}</p>
+      <h2 id={hid} class="font-display text-[clamp(2.5rem,4.6vw,3.75rem)] font-extrabold uppercase leading-[0.9]"><Fragment set:html={title} /></h2>
+    </div>
+    <div class="min-w-0 lg:col-span-2"><slot /></div>
+  </div>
+</section>

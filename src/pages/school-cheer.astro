@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import FactStrip from '../components/FactStrip.astro';
+import Section from '../components/Section.astro';
+import CtaBand from '../components/CtaBand.astro';
+import DiamondList from '../components/DiamondList.astro';
+import { site } from '../data/site';
+const facts = [{ stat: '3 days', label: 'Private summer camp' }, { stat: 'Jr High & High', label: 'Cheer squads & mascots' }, { stat: '1:30–2:00', label: 'Custom pep rally routine' }, { stat: 'Family show', label: 'Final-day showcase' }];
+/* DECAP CMS: page.features */
+const features = ['Cheers &amp; chants', 'Stunt safety taught by professionals', 'Custom 1:30–2:00 min All-Star pep rally routine', 'Mascot training', 'Catered lunches', 'Final-day family show-off'];
+---
+<Base title="School Cheer Summer Camps in Lubbock | Raider Xtreme" description="Private 3-day summer cheer camps for junior high and high school squads and mascots, with stunt safety and a custom pep rally routine. Lubbock, TX.">
+  <PageHero crumbs={[{ label: 'School Cheer' }]} kicker="For school squads &amp; mascots" title="School" accent="Cheer"
+    intro="Private three-day summer camps for junior high and high school cheer squads and mascots — built around your team."
+    ctas={[{ label: `Call ${site.phone}`, href: site.phoneHref }, { label: 'Email Us', href: 'mailto:lubbock@raiderxtreme.com', variant: 'outline' }]} />
+  <FactStrip facts={facts} />
+  <Section kicker="What's included" title="Camp built for your squad">
+    <div class="grid items-start gap-8 md:grid-cols-2">
+      <div>
+        <p class="mb-4 text-lg leading-relaxed text-ink/90 text-pretty">Your squad trains privately with Raider Xtreme coaches for three days — cheers and chants, stunt safety taught by professionals, and a custom All-Star pep rally routine, 1:30 to 2:00 minutes, ready for the first game.</p>
+        <p class="mb-4 text-lg leading-relaxed text-ink/90 text-pretty">Mascots get their own training, lunches are catered, and camp ends with a family show-off so parents see what the team learned.</p>
+      </div>
+      <DiamondList items={features} />
+    </div>
+  </Section>
+  <CtaBand title="Book your squad's camp" text="Call or email to talk dates, squad size and goals."
+    primary={{ label: `Call ${site.phone}`, href: site.phoneHref }} secondary={{ label: 'Email lubbock@raiderxtreme.com', href: 'mailto:lubbock@raiderxtreme.com' }} />
+</Base>

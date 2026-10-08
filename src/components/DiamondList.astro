@@ -1,0 +1,13 @@
+---
+/** Bulleted list with scarlet diamond markers. Items may contain inline HTML (&amp;, <a>). */
+interface Props { items: string[]; cols?: 1 | 2 }
+const { items, cols = 2 } = Astro.props;
+---
+<ul class:list={['grid gap-x-8 border-t border-black/15', cols === 2 && 'sm:grid-cols-2']}>
+  {items.map((i) => (
+    <li class="flex items-baseline gap-3.5 border-b border-black/15 py-3.5 leading-normal">
+      <span aria-hidden="true" class="h-[7px] w-[7px] shrink-0 -translate-y-0.5 rotate-45 bg-scarlet"></span>
+      <span set:html={i} />
+    </li>
+  ))}
+</ul>

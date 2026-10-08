@@ -1,0 +1,43 @@
+---
+/** Prospective-customer journey. Mobile menu uses native <details> — no JS. */
+import { primaryNav, links, ext } from '../data/site';
+const { current = '/' } = Astro.props as { current?: string };
+const isActive = (href: string) => href !== '/' && current.startsWith(href);
+---
+<header class="sticky top-0 z-40 border-b border-black/5 bg-white/95 backdrop-blur">
+  <nav aria-label="Primary" class="mx-auto grid max-w-site grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-x-7 px-6 py-3">
+    <a href="/" aria-label="Raider Xtreme home" class="flex items-center gap-3">
+      <img src="/images/raider-x-logo.png" alt="Raider Xtreme logo: a red and black X with the word Raider in script" width="56" height="45" class="h-11 w-auto" />
+      <span class="hidden font-display text-2xl font-extrabold uppercase leading-none tracking-tight sm:inline">Raider <span class="text-scarlet">Xtreme</span></span>
+    </a>
+    <!-- DECAP CMS: settings.primaryNav loop -->
+    <ul class="hidden justify-end gap-6 text-[15px] font-semibold md:flex">
+      {primaryNav.map((n) => n.children ? (
+        <li class="relative">
+          <details class="group" data-nav-menu>
+            <summary class:list={['flex cursor-pointer list-none items-center gap-1.5 hover:text-scarlet', n.children.some((c) => !c.external && isActive(c.href.split('#')[0])) && 'text-scarlet']}>{n.label} <span class="text-[10px]" aria-hidden="true">▾</span></summary>
+            <ul class="absolute left-0 top-full mt-2.5 w-52 rounded-lg bg-white p-2 shadow-xl ring-1 ring-black/5">
+              {n.children.map((c) => <li><a href={c.href} {...(c.external ? ext : {})} class="block rounded px-3 py-2.5 hover:bg-bone hover:text-scarlet">{c.label}</a></li>)}
+            </ul>
+          </details>
+        </li>
+      ) : (
+        <li><a href={n.href} aria-label={n.label} aria-current={isActive(n.href) ? 'page' : undefined}
+               class:list={['hover:text-scarlet', isActive(n.href) && 'text-scarlet']}>{n.label}</a></li>
+      ))}
+    </ul>
+    <details class="relative justify-self-end md:hidden">
+      <summary aria-label="Open menu" class="cursor-pointer list-none rounded border border-black/15 px-3 py-2 text-sm font-bold uppercase">Menu</summary>
+      <ul class="absolute right-0 mt-2 w-56 rounded-lg bg-white p-2 shadow-xl ring-1 ring-black/5">
+        {primaryNav.flatMap((n) => n.children ?? [n]).map((n) => <li><a href={n.href} aria-label={n.label} class="block rounded px-3 py-2.5 font-semibold hover:bg-bone">{n.label}</a></li>)}
+      </ul>
+    </details>
+    <a href={links.enrollClasses} {...ext} aria-label="Enroll in a class online (opens iClassPro in a new tab)"
+       class="whitespace-nowrap rounded bg-scarlet px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-scarlet-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-scarlet">Enroll Now</a>
+  </nav>
+</header>
+<script is:inline>
+  // close any open dropdown on outside click / Escape
+  document.addEventListener('click', (e) => document.querySelectorAll('details[data-nav-menu][open]').forEach((d) => { if (!d.contains(e.target)) d.removeAttribute('open'); }));
+  document.addEventListener('keydown', (e) => e.key === 'Escape' && document.querySelectorAll('details[data-nav-menu][open]').forEach((d) => d.removeAttribute('open')));
+</script>

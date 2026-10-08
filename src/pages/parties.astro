@@ -1,0 +1,50 @@
+---
+/** /parties — legacy birthday-parties.html + entertainment.html */
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import FactStrip from '../components/FactStrip.astro';
+import Section from '../components/Section.astro';
+import CtaBand from '../components/CtaBand.astro';
+import DiamondList from '../components/DiamondList.astro';
+import InfoCard from '../components/InfoCard.astro';
+import { site, links } from '../data/site';
+const facts = [{ stat: '$350', label: 'Xtreme Party Package' }, { stat: '26 kids', label: 'Included · $5 each after' }, { stat: '90 min', label: 'Private party' }, { stat: '2 hosts', label: 'On the floor with your guests' }];
+const rows = [
+  { k: '60 min', v: 'Playtime on all our equipment with two party hosts helping kids.' },
+  { k: '30 min', v: 'Main party room for cake, food, gifts — whatever you like.' },
+  { k: 'Setup &amp; cleanup', v: 'Handled by us, plus help serving refreshments.' },
+  { k: 'Tables', v: '2 picnic tables and 3 additional tables.' },
+  { k: 'Bring your own', v: 'Outside food, drinks and decor are welcome.' },
+];
+/* DECAP CMS: Party Add-ons collection */
+const addons = [{ title: 'Pizza', body: 'Let us handle the food.' }, { title: 'Module Challenge', body: 'The Ultimate Module Challenge inflatable room.' }, { title: 'Characters', body: 'A special character appearance.' }, { title: '+30 Minutes', body: 'Book the 6:00 PM slot, then email us to add time.' }];
+---
+<Base title="Kids Birthday Parties in Lubbock, TX | Raider Xtreme" description="Private 90-minute gym birthday parties for up to 26 kids from $350 — trampolines, foam pit, obstacle course inflatable and two party hosts. Book online.">
+  <PageHero crumbs={[{ label: 'Party & Play' }, { label: 'Birthday Parties' }]} kicker="Private gym parties" title="Birthday" accent="Parties"
+    intro="The whole gym, just for your guests. We handle setup, cleanup and the hosting — you bring the cake and the camera."
+    ctas={[{ label: 'Book Your Date', href: links.partyBooking, external: true }, { label: 'What’s Included', href: '#included', variant: 'outline' }]} />
+  <FactStrip facts={facts} />
+  <Section id="included" kicker="The package" title="What’s included">
+    <div class="grid items-start gap-8 md:grid-cols-2">
+      <dl class="border-t-2 border-midnight">
+      {rows.map((r) => (
+        <div class="grid gap-x-8 gap-y-1 border-b border-black/15 py-[18px] sm:grid-cols-[200px_minmax(0,1fr)]">
+          <dt class="font-bold" set:html={r.k} /><dd class="leading-relaxed text-ink-muted" set:html={r.v} />
+        </div>
+      ))}
+    </dl>
+      <img src="/images/parties/party-room.jpg" loading="lazy" width="640" height="800" alt="Birthday girl blowing out candles at a party table surrounded by friends in the Raider Xtreme party room" class="aspect-[4/5] w-full rounded-lg bg-bone object-cover" />
+    </div>
+  </Section>
+  <Section kicker="The gym is the party" title="What they’ll play on" tone="bone">
+    <DiamondList items={['3-part Adrenaline Rush obstacle course inflatable', 'Inflatable birthday chair', '4 in-ground trampolines', '50 ft in-ground &amp; above-ground tumble tracks', '11 ft foam pit with rope swing', 'Open floor space for free play']} />
+  </Section>
+  <Section kicker="Make it bigger" title="Optional add-ons">
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">{addons.map((a) => <InfoCard {...a} />)}</div>
+  </Section>
+  <Section kicker="Before you book" title="Party policies" tone="bone">
+    <DiamondList cols={1} items={['A deposit is required at booking and is non-refundable and non-transferable.', 'Up to 26 children included; each additional child is $5.', 'Equipment is for ages 17 and under — adults are welcome on the floor to help and take photos.', `Want extra time? Book the 6:00 PM slot, then email <a href="mailto:${site.email}" class="font-semibold underline">${site.email}</a>.`]} />
+  </Section>
+  <CtaBand title="Pick your date" text="See open dates and book in minutes with our online booking system."
+    primary={{ label: 'Book Online', href: links.partyBooking, external: true }} secondary={{ label: 'Email Us', href: `mailto:${site.email}` }} />
+</Base>

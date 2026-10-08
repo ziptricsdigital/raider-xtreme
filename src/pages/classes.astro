@@ -1,0 +1,69 @@
+---
+/** /classes — merges legacy class-schedule.html + class-descriptions.html + developmental-2.html
+ *  DECAP CMS: src/content/pages/classes.md (hero, facts, rows, steps, notes) + Classes collection */
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import FactStrip from '../components/FactStrip.astro';
+import Section from '../components/Section.astro';
+import CtaBand from '../components/CtaBand.astro';
+import DiamondList from '../components/DiamondList.astro';
+import InfoCard from '../components/InfoCard.astro';
+import { site, links } from '../data/site';
+const facts = [{ stat: 'Ages 3+', label: 'Potty-trained to teens' }, { stat: '$65–85', label: 'Per month, by class' }, { stat: '1 : 5', label: 'Coach-to-athlete ratio' }, { stat: 'Mon–Thu', label: 'Multiple class times' }];
+/* DECAP CMS: Classes collection → src/content/classes/*.md */
+const classes = [
+  { id: 'raider-tots', tag: 'Ages 3–5', title: 'Raider Tots', body: 'Basic stretching, trampoline and tumbling. Age-appropriate fundamentals that build body awareness and control.', image: '/images/classes/raider-tots.jpg', imageAlt: 'Three-year-old in a red leotard bouncing on a trampoline while a smiling coach holds her hands' },
+  { id: 'combo', tag: 'Cheer skills', title: 'Combo', body: 'Standing and running tumbling, motion technique and jumps — plus strength and conditioning.', image: '/images/classes/combo.jpg', imageAlt: 'Row of young cheerleaders hitting toe-touch jumps in unison on the spring floor' },
+  { id: 'tumbling', tag: 'Tumbling', title: 'Tumbling', body: 'Simply tumbling. Standing and running technique and difficulty, coached at your athlete’s current level.', image: '/images/classes/tumbling.jpg', imageAlt: 'Coach spotting a girl through a back handspring on a padded tumble mat' },
+  { id: 'hip-hop', tag: 'Studio X', title: 'Hip-Hop', body: 'Basic to intermediate choreography across a variety of hip-hop styles, plus tricking.', image: '/images/classes/hip-hop.jpg', imageAlt: 'Kids in a recreational hip-hop class mid-move in front of the studio mirror' },
+  { id: 'tumbling-trampoline', tag: 'Air Extreme', title: 'Tumbling &amp; Trampoline', body: 'Recreational T&amp;T taught by a staff with over 120 years of combined experience.', image: '/images/classes/tumbling-trampoline.jpg', imageAlt: 'Boy performing a tuck jump on an in-ground trampoline' },
+];
+const rows = [
+  { k: 'Season', v: 'Classes run August 17, 2026 – July 31, 2027. Enroll any time during the year.' },
+  { k: 'Tuition', v: '$65–$85 per month depending on the class, drafted the first business day of each month.' },
+  { k: 'Registration', v: 'Annual registration fee at enrollment.' },
+  { k: 'Late fee', v: '$35 after the 15th of the month.' },
+  { k: 'Dropping', v: 'Two-week written notice before the month you wish to drop.' },
+];
+const steps = [
+  { t: 'Create your account', d: 'Set up a free family account in our Parent Portal — online, or on the lobby computer during office hours.' },
+  { t: 'Enroll — or try it first', d: 'Pick a class and enroll. Not sure yet? Pay a one-time trial fee and tell the front office which class to list you in.' },
+  { t: 'Dress for it', d: 'Fitted clothes: sports bra or t-shirt and shorts or spandex. No shoes needed.' },
+];
+const notes = ['No experience needed — coaches adapt to every skill level.', 'Must be 3 years old and potty-trained to start.', 'Missed a class? Make-ups are welcome when space allows — just tell the office.', 'Private lessons are available to enrolled athletes; book directly with the instructor.', 'College athletes or college-cheer hopefuls: ask about classes for you.', `Office hours: ${site.officeHours}.`];
+---
+<Base title="Kids Cheer, Tumbling & Hip-Hop Classes in Lubbock, TX | Raider Xtreme" description="Weekly preschool, tumbling, cheer combo, hip-hop and trampoline classes for ages 3+ in Lubbock. $65–85/month, 1:5 coach ratio. Enroll online any time.">
+  <PageHero crumbs={[{ label: 'Classes' }]} kicker="Developmental · Ages 3+" title="Weekly" accent="Classes"
+    intro="Beginner-friendly cheer, tumbling, trampoline and hip-hop classes. Every athlete works on the skills they need — so it’s never too late in the year to start."
+    ctas={[{ label: 'Enroll Online', href: links.enrollClasses, external: true }, { label: 'How to Start', href: '#start', variant: 'outline' }]} />
+  <FactStrip facts={facts} />
+  <Section kicker="Find their fit" title="Pick a class">
+    <!-- DECAP CMS: Classes collection loop -->
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {classes.map((c) => <div id={c.id}><InfoCard tag={c.tag} title={c.title} body={c.body} image={c.image} imageAlt={c.imageAlt} /></div>)}
+    </div>
+  </Section>
+  <Section kicker="2026–27 season" title="Schedule &amp; tuition" tone="bone">
+    <dl class="border-t-2 border-midnight">
+      {rows.map((r) => (
+        <div class="grid gap-x-8 gap-y-1 border-b border-black/15 py-[18px] sm:grid-cols-[200px_minmax(0,1fr)]">
+          <dt class="font-bold" set:html={r.k} /><dd class="leading-relaxed text-ink-muted" set:html={r.v} />
+        </div>
+      ))}
+    </dl>
+    <a href={links.enrollClasses} target="_blank" rel="noopener" aria-label="See the live class schedule and openings in iClassPro (opens in a new tab)" class="mt-7 inline-block rounded bg-scarlet px-5 py-3.5 text-sm font-bold uppercase tracking-wide text-white hover:bg-scarlet-dark">See Live Schedule &amp; Openings <span aria-hidden="true">↗</span></a>
+  </Section>
+  <Section id="start" kicker="Getting started" title="Three steps to day one">
+    <ol class="grid gap-5 md:grid-cols-3">
+      {steps.map((s, i) => (
+        <li class="border-t-[3px] border-scarlet pt-5">
+          <p aria-hidden="true" class="font-display text-[44px] font-extrabold leading-none text-scarlet">0{i + 1}</p>
+          <h3 class="mt-2.5 text-[19px] font-bold">{s.t}</h3><p class="mt-1.5 leading-relaxed text-ink-muted">{s.d}</p>
+        </li>
+      ))}
+    </ol>
+  </Section>
+  <Section kicker="Good to know" title="Before your first class" tone="bone"><DiamondList items={notes} /></Section>
+  <CtaBand title="Find their class" text="Live times and open spots are always up to date in our Parent Portal."
+    primary={{ label: 'Enroll Online', href: links.enrollClasses, external: true }} secondary={{ label: `Call ${site.phone}`, href: site.phoneHref }} />
+</Base>

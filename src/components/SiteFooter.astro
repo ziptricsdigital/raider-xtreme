@@ -1,0 +1,84 @@
+---
+/** Lead-capture footer on every page: Web3Forms inquiry form, map, contact details, quick links. */
+import { site, links, footerLinks, ext } from '../data/site';
+const year = new Date().getFullYear();
+const topics = ['Not sure yet', 'Weekly classes', 'Competitive teams', 'Birthday party', 'Fun Friday', 'Field trip', 'School cheer', 'Facility tour'];
+---
+<!-- ============ 6. LEAD CAPTURE FOOTER ============ -->
+<footer id="contact" aria-labelledby="contact-heading" class="bg-bone">
+  <div class="mx-auto grid max-w-site gap-12 px-6 py-[88px] lg:grid-cols-2">
+    <div class="rounded-lg bg-white p-7 ring-1 ring-black/5 sm:p-10">
+      <p class="mb-3 text-sm font-bold uppercase tracking-[0.14em] text-scarlet">Questions · Tours · Tryouts</p>
+      <h2 id="contact-heading" class="font-display text-[clamp(2.4rem,4.4vw,3.25rem)] font-extrabold uppercase leading-none tracking-tight">Let's get them moving</h2>
+      <p class="mt-3 text-ink-muted">Ready to enroll? <a href={links.enrollClasses} {...ext} aria-label="Register online through iClassPro (opens in a new tab)" class="font-semibold text-scarlet underline">Register online</a>. Otherwise, send us a note.</p>
+
+      <!-- Web3Forms + Cloudflare Turnstile. No honeypot field by design. -->
+      <form action="https://api.web3forms.com/submit" method="POST" aria-label="Raider Xtreme inquiry form" class="mt-8 grid gap-5 sm:grid-cols-2">
+        <input type="hidden" name="access_key" value={site.web3formsKey} />
+        <input type="hidden" name="subject" value="New inquiry from raiderxtreme.com" />
+        <input type="hidden" name="from_name" value="Raider Xtreme Website" />
+        <input type="hidden" name="redirect" value="https://www.raiderxtreme.com/thank-you" />
+
+        <div class="flex flex-col gap-1.5"><label for="parent_name" class="text-sm font-semibold">Parent / guardian name <span class="text-scarlet" aria-hidden="true">*</span></label>
+          <input id="parent_name" name="parent_name" type="text" required autocomplete="name" aria-label="Parent or guardian full name" class="rounded border border-black/15 px-4 py-3 focus:border-scarlet focus:outline-none focus:ring-2 focus:ring-scarlet/30" /></div>
+        <div class="flex flex-col gap-1.5"><label for="phone" class="text-sm font-semibold">Phone</label>
+          <input id="phone" name="phone" type="tel" autocomplete="tel" aria-label="Best phone number to reach you" class="rounded border border-black/15 px-4 py-3 focus:border-scarlet focus:outline-none focus:ring-2 focus:ring-scarlet/30" /></div>
+        <div class="flex flex-col gap-1.5 sm:col-span-2"><label for="email" class="text-sm font-semibold">Email <span class="text-scarlet" aria-hidden="true">*</span></label>
+          <input id="email" name="email" type="email" required autocomplete="email" aria-label="Email address" class="rounded border border-black/15 px-4 py-3 focus:border-scarlet focus:outline-none focus:ring-2 focus:ring-scarlet/30" /></div>
+        <div class="flex flex-col gap-1.5"><label for="athlete_age" class="text-sm font-semibold">Athlete's age</label>
+          <input id="athlete_age" name="athlete_age" type="number" min="2" max="18" inputmode="numeric" aria-label="Your athlete's age in years" class="rounded border border-black/15 px-4 py-3 focus:border-scarlet focus:outline-none focus:ring-2 focus:ring-scarlet/30" /></div>
+        <div class="flex flex-col gap-1.5"><label for="interest" class="text-sm font-semibold">Interested in</label>
+          <!-- DECAP CMS: options from settings.inquiryTopics -->
+          <select id="interest" name="interest" aria-label="What you are interested in" class="rounded border border-black/15 bg-white px-4 py-3 focus:border-scarlet focus:outline-none focus:ring-2 focus:ring-scarlet/30">
+            {topics.map((o) => <option>{o}</option>)}
+          </select></div>
+        <div class="flex flex-col gap-1.5 sm:col-span-2"><label for="message" class="text-sm font-semibold">Message</label>
+          <textarea id="message" name="message" rows="4" aria-label="Tell us about your athlete or your question" class="rounded border border-black/15 px-4 py-3 focus:border-scarlet focus:outline-none focus:ring-2 focus:ring-scarlet/30"></textarea></div>
+
+        <div class="flex items-start gap-3 sm:col-span-2">
+          <input id="privacy_consent" name="privacy_consent" type="checkbox" value="yes" required aria-required="true" aria-label="I agree to the privacy policy and consent to be contacted" class="mt-1 h-5 w-5 shrink-0 rounded border-black/30 text-scarlet focus:ring-scarlet" />
+          <label for="privacy_consent" class="text-sm leading-relaxed text-ink-muted">I agree to the <a href="/privacy" class="font-semibold text-ink underline hover:text-scarlet">privacy policy</a> and consent to Raider Xtreme contacting me about my inquiry. <span class="text-scarlet" aria-hidden="true">*</span></label>
+        </div>
+
+        <!-- CAPTCHA: Cloudflare Turnstile renders here. hCaptcha alternative (Web3Forms native):
+             <div class="h-captcha" data-captcha="true"></div> + https://web3forms.com/client/script.js -->
+        <div class="sm:col-span-2"><div class="cf-turnstile" data-sitekey={site.turnstileSiteKey} data-theme="light"></div></div>
+
+        <button type="submit" aria-label="Send your inquiry to Raider Xtreme" class="rounded bg-scarlet px-7 py-4 font-bold uppercase tracking-wide text-white transition hover:bg-scarlet-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-scarlet sm:col-span-2 sm:justify-self-start">Send Inquiry</button>
+      </form>
+    </div>
+
+    <div id="location" class="flex flex-col gap-8">
+      <iframe src={site.mapEmbedUrl} loading="lazy" referrerpolicy="no-referrer-when-downgrade" title={`Map showing Raider Xtreme at ${site.street}, ${site.city}, ${site.region}`}
+              class="aspect-[4/3] w-full rounded-lg border-0 ring-1 ring-black/5"></iframe>
+      <address class="grid gap-6 not-italic sm:grid-cols-2">
+        <div><p class="text-xs font-bold uppercase tracking-[0.16em] text-ink-muted">Visit</p>
+          <a href={`https://maps.google.com/?q=${encodeURIComponent(`${site.street} ${site.city} ${site.region} ${site.postal}`)}`} {...ext} aria-label="Driving directions to Raider Xtreme (opens Google Maps)" class="mt-2 block font-semibold leading-snug hover:text-scarlet">{site.street}<br />{site.city}, {site.region} {site.postal}</a></div>
+        <div><p class="text-xs font-bold uppercase tracking-[0.16em] text-ink-muted">Call or email</p>
+          <a href={site.phoneHref} aria-label={`Call ${site.phone}`} class="mt-2 block font-semibold hover:text-scarlet">{site.phone}</a>
+          <a href={`mailto:${site.email}`} aria-label={`Email ${site.email}`} class="block font-semibold hover:text-scarlet">{site.email}</a></div>
+      </address>
+    </div>
+  </div>
+
+  <div class="bg-midnight text-white">
+    <div class="mx-auto grid max-w-site gap-10 px-6 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
+      <div>
+        <a href="/" aria-label="Raider Xtreme home" class="flex items-center gap-3"><img src="/images/raider-x-logo.png" alt="" width="56" height="45" class="h-11 w-auto" /><span class="font-display text-2xl font-extrabold uppercase leading-none">Raider <span class="text-scarlet-light">Xtreme</span></span></a>
+        <p class="mt-4 max-w-xs text-sm text-white/70">Cheer, tumbling, trampoline &amp; hip-hop for Lubbock kids of every level.</p>
+      </div>
+      <!-- DECAP CMS: settings.footerLinks loop -->
+      {footerLinks.map((col) => (
+        <nav aria-label={`${col.heading} links`}>
+          <h2 class="text-xs font-bold uppercase tracking-[0.16em] text-white/55">{col.heading}</h2>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            {col.links.map((l) => (
+              <li><a href={l.href} {...(l.external ? ext : {})} aria-label={l.external ? `${l.label} (opens in a new tab)` : l.label} class="text-white/85 hover:text-white">{l.label}{l.external && <span aria-hidden="true"> ↗</span>}</a></li>
+            ))}
+          </ul>
+        </nav>
+      ))}
+    </div>
+    <div class="border-t border-white/10"><p class="mx-auto max-w-site px-6 py-5 text-xs text-white/55">© {year} Raider Xtreme · Lubbock, Texas</p></div>
+  </div>
+</footer>

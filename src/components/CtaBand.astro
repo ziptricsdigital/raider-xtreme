@@ -1,0 +1,23 @@
+---
+/** Scarlet closing CTA band. DECAP CMS: page frontmatter → cta.title, cta.text, cta.buttons[] */
+interface Btn { label: string; href: string; external?: boolean }
+interface Props { title: string; text: string; primary: Btn; secondary?: Btn }
+const { title, text, primary, secondary } = Astro.props;
+const ext = (b: Btn) => (b.external ? { target: '_blank', rel: 'noopener' } : {});
+---
+<section aria-label={title} class="bg-scarlet py-[72px] text-white">
+  <div class="mx-auto flex max-w-site flex-wrap items-end justify-between gap-7 px-6">
+    <div>
+      <p class="font-display text-[clamp(2.75rem,5.6vw,4.75rem)] font-extrabold uppercase leading-[0.88]">{title}</p>
+      <p class="mt-3.5 max-w-lg text-lg leading-normal">{text}</p>
+    </div>
+    <div class="flex flex-wrap gap-3">
+      <a href={primary.href} {...ext(primary)} aria-label={primary.external ? `${primary.label} (opens in a new tab)` : primary.label}
+         class="rounded bg-white px-6 py-4 font-bold uppercase tracking-wide text-scarlet-dark transition hover:bg-midnight hover:text-white">{primary.label}{primary.external && <span aria-hidden="true"> ↗</span>}</a>
+      {secondary && (
+        <a href={secondary.href} {...ext(secondary)} aria-label={secondary.label}
+           class="rounded border-2 border-white px-6 py-[14px] font-bold uppercase tracking-wide text-white transition hover:bg-white hover:text-midnight">{secondary.label}</a>
+      )}
+    </div>
+  </div>
+</section>

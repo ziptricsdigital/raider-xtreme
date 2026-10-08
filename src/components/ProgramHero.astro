@@ -1,0 +1,67 @@
+---
+/** Branded hero for sub-programs with their own logo (Air Extreme, Studio X).
+ *  variant "mark": the logo IS the visual <h1> (alt text carries the name).
+ *  variant "badge": small logo above a typographic <h1> — for low-res logo files.
+ *  Right side: angled brand panel; pass `image` to swap in an action photo with the same angled crop.
+ *  Colors come from the page's accent theme (<Base theme="…">).
+ *  DECAP CMS: page frontmatter → hero.kicker, hero.intro, hero.ctas[], hero.image */
+interface Cta { label: string; href: string; external?: boolean; variant?: 'primary' | 'outline' }
+interface Props {
+  crumbs: { label: string; href?: string }[]; kicker: string; title: string; accent?: string; intro: string; ctas?: Cta[];
+  logo: { src: string; alt: string; width: number; height: number }; variant: 'mark' | 'badge'; image?: { src: string; alt: string };
+}
+const { crumbs, kicker, title, accent, intro, ctas = [], logo, variant, image } = Astro.props;
+const angle = '[clip-path:polygon(24%_0,100%_0,100%_100%,0_100%)]';
+---
+<section aria-labelledby="page-title" class="overflow-hidden bg-midnight text-white lg:flex">
+  <div class="min-w-0 pb-14 pr-6 pt-12 sm:pr-14 lg:flex-[1_1_560px] lg:pb-[152px]" style="padding-left:max(1.5rem, calc((100% - 76rem) / 2 + 1.5rem))">
+    <nav aria-label="Breadcrumb" class="mb-14">
+      <ol class="flex flex-wrap gap-2 text-[13px] text-white/70">
+        <li><a href="/" class="hover:text-white">Home</a></li>
+        {crumbs.map((c) => (
+          <li class="flex gap-2"><span aria-hidden="true">/</span>{c.href ? <a href={c.href} class="hover:text-white">{c.label}</a> : <span aria-current="page" class="text-white">{c.label}</span>}</li>
+        ))}
+      </ol>
+    </nav>
+    <div class="max-w-[560px]">
+      {variant === 'mark' ? (
+        <>
+          <h1 id="page-title"><img src={logo.src} alt={logo.alt} width={logo.width} height={logo.height} fetchpriority="high" class="block h-[clamp(150px,18vw,250px)] w-auto" /></h1>
+          <p class="mt-7 flex items-center gap-3 text-sm font-bold uppercase tracking-[0.16em]"><span aria-hidden="true" class="h-[3px] w-8 bg-scarlet"></span><Fragment set:html={kicker} /></p>
+        </>
+      ) : (
+        <>
+          <img src={logo.src} alt="" width={logo.width} height={logo.height} class="block h-auto w-auto max-w-[min(100%,202px)]" />
+          <p class="mb-4 mt-8 flex items-center gap-3 text-sm font-bold uppercase tracking-[0.16em]"><span aria-hidden="true" class="h-[3px] w-8 bg-scarlet"></span><Fragment set:html={kicker} /></p>
+          <h1 id="page-title" class="font-display text-[clamp(3.5rem,7vw,6.5rem)] font-extrabold uppercase leading-[0.86] tracking-tight">
+            {title}{accent && <><br /><span class="text-scarlet-light">{accent}</span></>}
+          </h1>
+        </>
+      )}
+      <p class="mt-6 max-w-[500px] text-lg leading-relaxed text-white/85 text-pretty">{intro}</p>
+      {ctas.length > 0 && (
+        <div class="mt-8 flex flex-wrap gap-3">
+          {ctas.map((c) => (
+            <a href={c.href} {...(c.external ? { target: '_blank', rel: 'noopener' } : {})}
+               aria-label={c.external ? `${c.label} (opens in a new tab)` : c.label}
+               class:list={['rounded px-6 py-4 font-bold uppercase tracking-wide transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white',
+                 c.variant === 'outline' ? 'border-2 border-white py-[14px] text-white hover:bg-white hover:text-midnight' : 'bg-scarlet text-white hover:bg-scarlet-dark']}>
+              {c.label}{c.external && <span aria-hidden="true"> ↗</span>}
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+  <div class="relative hidden lg:block lg:flex-[1_1_400px]">
+    {image ? (
+      <img src={image.src} alt={image.alt} class:list={['absolute inset-0 h-full w-full object-cover', angle]} />
+    ) : (
+      <div aria-hidden="true">
+        <div class:list={['absolute inset-0 bg-scarlet', angle]}></div>
+        <div class="absolute inset-0 bg-midnight [clip-path:polygon(48%_0,60%_0,36%_100%,24%_100%)]"></div>
+        <div class="absolute inset-0 bg-scarlet-light [clip-path:polygon(70%_0,74%_0,50%_100%,46%_100%)]"></div>
+      </div>
+    )}
+  </div>
+</section>

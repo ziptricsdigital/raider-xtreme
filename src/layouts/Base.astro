@@ -1,0 +1,44 @@
+---
+/** Base layout — every page gets the utility bar, primary nav and lead-capture footer.
+ *  Fonts are self-hosted: npm i @fontsource-variable/barlow-condensed (bundled, no CDN). */
+import '@fontsource-variable/barlow-condensed';
+import '../styles/global.css'; // @tailwind base; @tailwind components; @tailwind utilities;
+import 'lite-youtube-embed/src/lite-yt-embed.css'; // npm i lite-youtube-embed — click-to-load YouTube facade
+import UtilityBar from '../components/UtilityBar.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { site } from '../data/site';
+
+interface Props { title: string; description: string; path?: string; theme?: 'air' | 'studio'; }
+const { title, description, path = Astro.url.pathname, theme } = Astro.props;
+---
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- DECAP CMS: page frontmatter → seo.title / seo.description -->
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={new URL(path, site.url).href} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={new URL('/images/og-default.jpg', site.url).href} />
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org', '@type': 'SportsActivityLocation', name: site.name,
+    telephone: site.phone, email: site.email, url: site.url,
+    address: { '@type': 'PostalAddress', streetAddress: site.street, addressLocality: site.city, addressRegion: site.region, postalCode: site.postal, addressCountry: 'US' },
+    openingHours: 'Mo-Th 16:00-19:30',
+  })} />
+  <slot name="head" />
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+<body class="bg-white font-sans text-ink antialiased">
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-white focus:px-4 focus:py-2 focus:shadow-lg">Skip to main content</a>
+  <UtilityBar />
+  <SiteHeader current={path} />
+  <main id="main" class={theme ? `theme-${theme}` : undefined}><slot /></main>
+  <SiteFooter />
+  <script>import 'lite-youtube-embed';</script>
+</body>
+</html>

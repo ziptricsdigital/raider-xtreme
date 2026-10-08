@@ -1,0 +1,42 @@
+---
+/** Interior page hero. The page's single <h1> lives here.
+ *  DECAP CMS: page frontmatter → hero.kicker, hero.title, hero.accent, hero.intro, hero.ctas[] */
+interface Cta { label: string; href: string; external?: boolean; variant?: 'primary' | 'outline' }
+interface Props { crumbs: { label: string; href?: string }[]; kicker: string; title: string; accent: string; intro: string; ctas?: Cta[] }
+const { crumbs, kicker, title, accent, intro, ctas = [] } = Astro.props;
+---
+<section aria-labelledby="page-title" class="bg-midnight text-white">
+  <div class="mx-auto max-w-site px-6 pb-32 pt-12">
+    <nav aria-label="Breadcrumb" class="mb-10">
+      <ol class="flex flex-wrap gap-2 text-[13px] text-white/70">
+        <li><a href="/" class="hover:text-white">Home</a></li>
+        {crumbs.map((c) => (
+          <li class="flex gap-2"><span aria-hidden="true">/</span>{c.href ? <a href={c.href} class="hover:text-white">{c.label}</a> : <span aria-current="page" class="text-white">{c.label}</span>}</li>
+        ))}
+      </ol>
+    </nav>
+    <div class="grid items-end gap-x-14 gap-y-8 lg:grid-cols-2">
+      <div>
+        <p class="mb-4 flex items-center gap-2.5 text-sm font-bold uppercase tracking-[0.16em]"><span aria-hidden="true" class="h-[3px] w-8 bg-scarlet"></span><Fragment set:html={kicker} /></p>
+        <h1 id="page-title" class="font-display text-[clamp(3.75rem,9vw,8.5rem)] font-extrabold uppercase leading-[0.84] tracking-tight">
+          {title}<br /><span class="text-scarlet-light">{accent}</span>
+        </h1>
+      </div>
+      <div>
+        <p class="max-w-xl text-lg leading-relaxed text-white/85 text-pretty">{intro}</p>
+        {ctas.length > 0 && (
+          <div class="mt-7 flex flex-wrap gap-3">
+            {ctas.map((c) => (
+              <a href={c.href} {...(c.external ? { target: '_blank', rel: 'noopener' } : {})}
+                 aria-label={c.external ? `${c.label} (opens in a new tab)` : c.label}
+                 class:list={['rounded px-6 py-4 font-bold uppercase tracking-wide transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white',
+                   c.variant === 'outline' ? 'border-2 border-white py-[14px] text-white hover:bg-white hover:text-midnight' : 'bg-scarlet text-white hover:bg-scarlet-dark']}>
+                {c.label}{c.external && <span aria-hidden="true"> ↗</span>}
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,43 @@
+---
+/** /competitive — all-star cheer hub + half-year program (#half-year). Legacy: competitive.html, half-year-cheer---hip-hop.html */
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import FactStrip from '../../components/FactStrip.astro';
+import Section from '../../components/Section.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import DiamondList from '../../components/DiamondList.astro';
+import InfoCard from '../../components/InfoCard.astro';
+import { site, links } from '../../data/site';
+const facts = [{ stat: 'Full-year', label: 'Travel & compete' }, { stat: 'Half-year', label: 'Sept–Feb, no travel' }, { stat: 'March', label: 'Full-year early sign-ups' }, { stat: 'May', label: 'Evaluations' }];
+/* DECAP CMS: Disciplines collection */
+const disciplines = [
+  { tag: 'Cheer', title: 'All-Star Cheer', body: 'Stunts, tumbling, jumps and routines built for competition floors across the region.', image: '/images/competitive/cheer.jpg', imageAlt: 'Raider Xtreme all-star cheer team hitting a pyramid in red and black uniforms' },
+  { tag: 'Dance', title: 'Studio X Hip-Hop', body: 'One of the best hip-hop programs in the nation, taught by world-champion instructors.', image: '/images/competitive/studio-x.jpg', imageAlt: 'Studio X hip-hop team in matching streetwear performing on a competition stage', cta: { label: 'Explore Studio X', href: '/competitive/studio-x-hip-hop' } },
+  { tag: 'Tumbling &amp; Trampoline', title: 'Air Extreme', body: 'Beginner-to-elite T&amp;T teams competing locally, nationally and internationally.', image: '/images/competitive/air-extreme.jpg', imageAlt: 'Air Extreme athlete mid-flip above a double-mini trampoline', cta: { label: 'Explore Air Extreme', href: '/competitive/air-extreme' } },
+];
+---
+<Base title="Competitive All-Star Cheer & Hip-Hop Teams in Lubbock | Raider Xtreme" description="Full-year and half-year (Sept–Feb, non-travel) competitive cheer and hip-hop teams in Lubbock, TX. Sign-ups in March, evaluations in May.">
+  <PageHero crumbs={[{ label: 'Competitive' }]} kicker="All-Star Cheer · Hip-Hop · T&amp;T" title="Competitive" accent="Teams"
+    intro="Our competitive program strives to be at the top of the industry — and to give every athlete, at every level, the experience of a lifetime."
+    ctas={[{ label: 'Info Packet & Contract', href: links.competitivePacket, external: true }, { label: 'Ask About Evaluations', href: '#contact', variant: 'outline' }]} />
+  <FactStrip facts={facts} />
+  <Section id="half-year" kicker="Choose your season" title="Full-year or half-year">
+    <div class="grid gap-5 md:grid-cols-2">
+      <InfoCard tag="Full-Year · Cheer &amp; Hip-Hop" title="All-Star Teams" body="Train, travel and compete all season long. Early sign-ups open in March, with evaluations in May." cta={{ label: 'Info Packet (PDF)', href: links.competitivePacket, external: true }} />
+      <!-- DECAP CMS: settings.halfYearRegistrationDeadline -->
+      <InfoCard tag="Half-Year · Sept–Feb" title="Half-Year Program" body="Everything our full-year teams experience — without the time, travel or financial commitment. 2026–27 registration is open through August 31, 2026." cta={{ label: 'Register Now', href: links.enrollHalfYear, external: true }} />
+    </div>
+  </Section>
+  <Section kicker="Three disciplines" title="Find your team" tone="bone">
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{disciplines.map((d) => <InfoCard {...d} />)}</div>
+  </Section>
+  <Section kicker="More than medals" title="What athletes take with them">
+    <DiamondList items={['Time management', 'Leadership skills', 'Self-discipline', 'What it means to be a teammate']} />
+  </Section>
+  <Section kicker="Evaluations" title="Every athlete gets placed" tone="bone">
+    <p class="mb-4 text-lg leading-relaxed text-ink/90 text-pretty">Each team requires different skills, so we evaluate every athlete and place them on the team that fits their level. No guesswork, no pressure.</p>
+    <p class="mb-4 text-lg leading-relaxed text-ink/90 text-pretty">Not interested in competing? <a href="/classes" class="font-bold text-scarlet underline">Weekly classes</a> are the perfect place to build skills — there’s a spot in our program for every child and family.</p>
+  </Section>
+  <CtaBand title="Join the team" text="Questions about levels, costs or evaluations? Our coaches are happy to help."
+    primary={{ label: 'Register Half-Year', href: links.enrollHalfYear, external: true }} secondary={{ label: 'Contact a Coach', href: '#contact' }} />
+</Base>

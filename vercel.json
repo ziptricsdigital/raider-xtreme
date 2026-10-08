@@ -1,0 +1,42 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "astro",
+  "buildCommand": "astro build",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/home.html", "destination": "/", "permanent": true },
+    { "source": "/info.html", "destination": "/faq", "permanent": true },
+    { "source": "/faq.html", "destination": "/faq", "permanent": true },
+    { "source": "/contact.html", "destination": "/#contact", "permanent": true },
+    { "source": "/customer-portal.html", "destination": "https://portal.iclasspro.com/raiderxtreme/login?next=raiderxtreme%2Faccount&nextQueryParams=%7B%7D", "permanent": true },
+    { "source": "/developmental-2.html", "destination": "/classes", "permanent": true },
+    { "source": "/class-schedule.html", "destination": "/classes", "permanent": true },
+    { "source": "/class-descriptions.html", "destination": "/classes", "permanent": true },
+    { "source": "/entertainment.html", "destination": "/parties", "permanent": true },
+    { "source": "/birthday-parties.html", "destination": "/parties", "permanent": true },
+    { "source": "/fun-friday.html", "destination": "/fun-friday", "permanent": true },
+    { "source": "/field-trips.html", "destination": "/field-trips", "permanent": true },
+    { "source": "/competitive.html", "destination": "/competitive", "permanent": true },
+    { "source": "/studio-x-hip-hop.html", "destination": "/competitive/studio-x-hip-hop", "permanent": true },
+    { "source": "/half-year-cheer---hip-hop.html", "destination": "/competitive#half-year", "permanent": true },
+    { "source": "/air-extreme.html", "destination": "/competitive/air-extreme", "permanent": true },
+    { "source": "/school-cheer.html", "destination": "/school-cheer", "permanent": true },
+    { "source": "/program-comparison.html", "destination": "/competitive", "permanent": true },
+    { "source": "/membership-fee-benefits.html", "destination": "/faq", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    },
+    {
+      "source": "/_astro/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    }
+  ]
+}

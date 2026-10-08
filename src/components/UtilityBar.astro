@@ -1,0 +1,21 @@
+---
+/** Existing-customer journey: phone, address, FAQ, shop, Parent Portal (iClassPro). */
+import { site, links, ext } from '../data/site';
+---
+<div class="bg-midnight text-sm text-white/90">
+  <div class="mx-auto flex max-w-site flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-2">
+    <ul class="flex flex-wrap items-center gap-x-6 gap-y-1">
+      <li><a href={site.phoneHref} aria-label={`Call Raider Xtreme at ${site.phone}`} class="inline-flex items-center gap-2 hover:text-white"><span aria-hidden="true" class="h-1.5 w-1.5 rotate-45 bg-scarlet"></span>{site.phone}</a></li>
+      <li class="hidden sm:block"><a href="/#location" aria-label={`Directions to ${site.street}, ${site.city}`} class="inline-flex items-center gap-2 hover:text-white"><span aria-hidden="true" class="h-1.5 w-1.5 rotate-45 bg-scarlet"></span>{site.street}, {site.city}, {site.region} {site.postal}</a></li>
+    </ul>
+    <div class="flex items-center gap-5">
+      <a href="/faq" aria-label="Frequently asked questions" class="font-semibold hover:text-white">FAQ</a>
+      <a href={links.shop} {...ext} aria-label="Raider Xtreme team shop (opens in a new tab)" class="font-semibold hover:text-white">Team Shop <span aria-hidden="true">↗</span></a>
+      <a href={links.portalLogin} {...ext} aria-label="Parent Portal login for current families, powered by iClassPro (opens in a new tab)"
+         class="inline-flex items-center gap-2 rounded border border-white/40 px-3 py-1.5 font-semibold text-white transition hover:border-white hover:bg-white hover:text-midnight focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+        <svg aria-hidden="true" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+        Parent Portal Login
+      </a>
+    </div>
+  </div>
+</div>

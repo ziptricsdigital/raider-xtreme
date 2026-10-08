@@ -1,0 +1,218 @@
+---
+/** Raider Xtreme — Home. Layout, nav and footer come from Base.astro.
+ *  DECAP CMS: src/content/pages/home.md frontmatter feeds hero + the collections below. */
+import Base from '../layouts/Base.astro';
+import { site, links, ext } from '../data/site';
+
+/* DECAP CMS: Path Picker collection (hero entry points) */
+const paths = [
+  { kicker: 'Ages 3–5', title: 'Raider Tots', note: 'Preschool trampoline & tumbling', href: '/classes#raider-tots' },
+  { kicker: 'Weekly · Enroll anytime', title: 'Classes', note: 'Tumbling, combo, hip-hop, T&T', href: '/classes' },
+  { kicker: 'Full & half-year teams', title: 'Compete', note: 'All-star cheer, Studio X, Air Extreme', href: '/competitive' },
+  { kicker: 'Any age', title: 'Party & Play', note: 'Birthdays, Fun Friday, field trips', href: '/parties' },
+];
+
+/* DECAP CMS: Trust Signals collection */
+const trust = [
+  { stat: '10+', label: 'Years serving Lubbock families' },
+  { stat: '96%', label: 'Recommend us on Facebook' },
+  { stat: '120', label: 'Years of combined T&T coaching experience' },
+  { stat: '4×', label: 'Straight years at Dance Worlds & Summit' },
+];
+
+/* DECAP CMS: Sponsors collection (name, logo, url, order) */
+const sponsors = [
+  { name: 'Citizens State Bank', logo: '/images/sponsors/citizens-state-bank.png', h: 'h-11' },
+  { name: 'Double Down Fishing & Rental', logo: '/images/sponsors/double-down-fishing.png', h: 'h-11' },
+  { name: 'M4 Trucking', logo: '/images/sponsors/m4-trucking.png', h: 'h-14' },
+  { name: 'MCRT Services, LLC', logo: '/images/sponsors/mcrt-services.png', h: 'h-16' },
+  { name: 'Above & Beyond Beauty', logo: '/images/sponsors/above-beyond-beauty.png', h: 'h-12' },
+];
+
+/* DECAP CMS: Programs collection → src/content/programs/*.md
+   fields: id, kicker, title, summary, image, imageAlt, primary{label,href,external}, secondary{label,href}, offerings[{label,href}] */
+const programs = [
+  {
+    id: 'classes', kicker: '01 · Developmental · Ages 3+', title: 'Weekly Classes',
+    summary: 'Skill-level classes that build strength, technique and body control. 2026–27 classes start August 17 — enroll any time during the year, billed monthly.',
+    image: '/images/programs/developmental.jpg',
+    imageAlt: 'Preschool athlete bouncing on an in-ground trampoline while a Raider Xtreme coach spots her from the side',
+    primary: { label: 'Schedule & Enroll', href: links.enrollClasses, external: true },
+    secondary: { label: 'Class Guide', href: '/classes' },
+    offerings: [
+      { label: 'Raider Tots (Preschool)', href: '/classes#raider-tots' },
+      { label: 'Combo', href: '/classes#combo' },
+      { label: 'Tumbling', href: '/classes#tumbling' },
+      { label: 'Hip-Hop', href: '/classes#hip-hop' },
+      { label: 'Tumbling & Trampoline', href: '/classes#tumbling-trampoline' },
+    ],
+  },
+  {
+    id: 'competitive', kicker: '02 · Competitive · Full & half-year', title: 'Teams',
+    summary: 'Full-year all-star teams that travel and compete — plus a Sept–Feb half-year program without the travel or financial commitment. Athletes leave with leadership, discipline and lifelong teammates.',
+    image: '/images/programs/competitive.jpg',
+    imageAlt: 'Raider Xtreme all-star cheer team in red and black uniforms hitting a pyramid on a competition floor',
+    primary: { label: 'Explore Teams', href: '/competitive' },
+    secondary: { label: 'Info Packet (PDF)', href: links.competitivePacket },
+    offerings: [
+      { label: 'All-Star Cheer', href: '/competitive' },
+      { label: 'Studio X Hip-Hop', href: '/competitive/studio-x-hip-hop' },
+      { label: 'Air Extreme T&T', href: '/competitive/air-extreme' },
+      { label: 'Half-Year Cheer & Hip-Hop', href: '/competitive#half-year' },
+    ],
+  },
+  {
+    id: 'parties', kicker: '03 · Entertainment · All ages', title: 'Party & Play',
+    summary: 'Private 90-minute parties for up to 26 kids from $350, with two hosts, setup and cleanup handled. Plus Fun Friday parents’ night out and group field trips.',
+    image: '/images/programs/entertainment.jpg',
+    imageAlt: 'Laughing kids at a birthday party jumping from a rope swing into the Raider Xtreme foam pit',
+    primary: { label: 'Book a Party', href: links.partyBooking, external: true },
+    secondary: { label: 'Party Details', href: '/parties' },
+    offerings: [
+      { label: 'Birthday Parties', href: '/parties' },
+      { label: 'Fun Friday · Parents’ Night Out', href: '/fun-friday' },
+      { label: 'Field Trips', href: '/field-trips' },
+    ],
+  },
+];
+
+/* DECAP CMS: Facility Stats collection */
+const facilityStats = [
+  { stat: '4', label: 'In-ground trampolines' },
+  { stat: '50 ft', label: 'Trampoline tumble tracks' },
+  { stat: '11 ft', label: 'Foam pit with rope swing' },
+  { stat: '1-on-1', label: 'Private lessons for enrolled athletes' },
+];
+---
+<Base title="Raider Xtreme | Cheer, Tumbling, Trampoline & Hip-Hop in Lubbock, TX"
+      description="Preschool, weekly and all-star cheer, tumbling, trampoline and hip-hop for kids in Lubbock, TX — plus birthday parties, Fun Friday and field trips." path="/">
+  <!-- ============ 2. HERO — full-bleed photo + type over scrim + path picker ============ -->
+  <!-- DECAP CMS: home.md frontmatter → hero.eyebrow, hero.headline, hero.subhead, hero.image, hero.imageAlt -->
+  <section aria-labelledby="hero-heading" class="relative bg-midnight text-white">
+    <div class="relative flex min-h-[min(78vh,760px)] items-end">
+      <img src="/images/hero/hero-competition.jpg" alt="Raider Xtreme all-star flyer beaming at the top of a stunt above her teammates on a competition stage"
+           width="1290" height="1612" fetchpriority="high" class="absolute inset-0 h-full w-full object-cover object-[50%_14%]" />
+      <div aria-hidden="true" class="absolute inset-0 bg-gradient-to-b from-midnight/0 from-35% to-midnight/90"></div>
+      <div class="relative mx-auto w-full max-w-site px-6 pb-36 pt-32">
+        <p class="mb-5 flex items-center gap-2.5 text-sm font-bold uppercase tracking-[0.16em]"><span aria-hidden="true" class="h-[3px] w-8 bg-scarlet"></span>Cheer · Tumbling · Trampoline · Hip-Hop</p>
+        <!-- The ONLY <h1> on the page -->
+        <h1 id="hero-heading" class="font-display text-[clamp(4.5rem,12vw,11.5rem)] font-extrabold uppercase leading-[0.82] tracking-tight">
+          Unleash their<br /><span class="text-scarlet-light">potential</span>
+        </h1>
+        <div class="mt-8 flex flex-wrap items-center gap-x-10 gap-y-5">
+          <p class="max-w-lg text-lg leading-relaxed text-white/85 text-pretty">Lubbock's cheer &amp; tumbling gym for every kid — first forward rolls to world-stage routines. Real skills, safe progressions, and confidence that sticks.</p>
+          <div class="flex flex-wrap gap-3">
+            <a href={links.enrollClasses} {...ext} aria-label="Enroll in a class online (opens iClassPro in a new tab)"
+               class="rounded bg-scarlet px-7 py-4 font-bold uppercase tracking-wide text-white transition hover:bg-scarlet-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Enroll in a Class <span aria-hidden="true">→</span></a>
+            <a href="#contact" aria-label="Ask a coach a question"
+               class="rounded border-2 border-white px-7 py-[14px] font-bold uppercase tracking-wide text-white transition hover:bg-white hover:text-midnight focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Ask a Coach</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Path picker: DECAP CMS Path Picker collection loop -->
+    <nav aria-label="Find the right program" class="relative z-10 mx-auto -mt-20 max-w-site px-6">
+      <div class="grid gap-px overflow-hidden rounded-lg bg-black/10 text-ink shadow-2xl sm:grid-cols-2 lg:grid-cols-4">
+        <p class="col-span-full bg-white px-6 py-4 text-xs font-bold uppercase tracking-[0.16em] text-ink-muted">Where does your athlete fit?</p>
+        {paths.map((p) => (
+          <a href={p.href} aria-label={`${p.title}: ${p.note}`} class="flex flex-col gap-1.5 bg-white p-6 transition hover:bg-scarlet-tint">
+            <span class="text-xs font-bold uppercase tracking-[0.14em] text-scarlet">{p.kicker}</span>
+            <span class="font-display text-3xl font-extrabold uppercase leading-none">{p.title} <span aria-hidden="true">→</span></span>
+            <span class="text-sm text-ink-muted">{p.note}</span>
+          </a>
+        ))}
+      </div>
+    </nav>
+  </section>
+
+  <!-- ============ 3. TRUST BAR ============ -->
+  <section id="trust" aria-labelledby="trust-heading" class="pb-14 pt-[72px]">
+    <div class="mx-auto max-w-site px-6">
+      <h2 id="trust-heading" class="sr-only">Why Lubbock families trust Raider Xtreme</h2>
+      <ul class="grid gap-6 border-b border-black/10 pb-10 sm:grid-cols-2 lg:grid-cols-4">
+        {trust.map((t) => (
+          <li class="flex items-baseline gap-3"><span class="font-display text-[56px] font-extrabold leading-none text-scarlet">{t.stat}</span><span class="max-w-[11rem] text-sm font-semibold leading-snug">{t.label}</span></li>
+        ))}
+      </ul>
+      <div class="flex flex-wrap items-center gap-x-12 gap-y-6 pt-8">
+        <p class="text-xs font-bold uppercase tracking-[0.16em] text-ink-muted">Supported by</p>
+        <ul class="grid flex-1 grid-cols-2 items-center justify-items-center gap-x-10 gap-y-6 sm:grid-cols-3 lg:grid-cols-5">
+          {sponsors.map((s) => (
+            <li><img src={s.logo} alt={`${s.name} logo`} loading="lazy" class={`${s.h} w-auto max-w-[9.5rem] object-contain opacity-75 mix-blend-multiply grayscale transition hover:opacity-100 hover:grayscale-0`} /></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. PROGRAM MATRIX ============ -->
+  <section id="programs" aria-labelledby="programs-heading" class="bg-bone py-24">
+    <div class="mx-auto max-w-site px-6">
+      <div class="mb-14 flex flex-wrap items-end justify-between gap-6">
+        <h2 id="programs-heading" class="font-display text-[clamp(3rem,6vw,5rem)] font-extrabold uppercase leading-[0.88] tracking-tight">A place for<br />every athlete</h2>
+        <p class="max-w-md leading-relaxed text-ink-muted text-pretty">Three ways in. Start with weekly classes, step up to a team, or just come play — there's a spot for every child and family.</p>
+      </div>
+
+      <!-- DECAP CMS: Program Collection loop -->
+      {programs.map((p) => (
+        <article id={p.id} aria-labelledby={`${p.id}-title`} class="grid gap-10 border-t-2 border-midnight py-10 lg:grid-cols-2">
+          <div>
+            <p class="mb-2.5 text-xs font-bold uppercase tracking-[0.14em] text-scarlet">{p.kicker}</p>
+            <h3 id={`${p.id}-title`} class="font-display text-[52px] font-extrabold uppercase leading-[0.95]">{p.title}</h3>
+            <p class="mt-3.5 max-w-md leading-relaxed text-ink-muted">{p.summary}</p>
+            <div class="mt-6 flex flex-wrap gap-3">
+              <a href={p.primary.href} {...(p.primary.external ? ext : {})} aria-label={`${p.primary.label} — ${p.title}${p.primary.external ? ' (opens iClassPro in a new tab)' : ''}`}
+                 class="rounded bg-scarlet px-5 py-3.5 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-scarlet-dark">{p.primary.label}{p.primary.external && <span aria-hidden="true"> ↗</span>}</a>
+              <a href={p.secondary.href} aria-label={`${p.secondary.label} — ${p.title}`}
+                 class="rounded border-2 border-midnight px-5 py-3 text-sm font-bold uppercase tracking-wide transition hover:bg-midnight hover:text-white">{p.secondary.label}</a>
+            </div>
+          </div>
+          <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] gap-5">
+            <img src={p.image} alt={p.imageAlt} loading="lazy" width="640" height="800" class="aspect-[4/5] w-full rounded-md bg-black/5 object-cover" />
+            <ul class="border-t border-black/15" aria-label={`${p.title} options`}>
+              {p.offerings.map((o) => (
+                <li><a href={o.href} aria-label={`Learn about ${o.label}`} class="flex justify-between gap-3 border-b border-black/15 py-3.5 font-semibold hover:text-scarlet"><span>{o.label}</span><span aria-hidden="true" class="text-scarlet">→</span></a></li>
+              ))}
+            </ul>
+          </div>
+        </article>
+      ))}
+
+      <a id="school-cheer" href="/school-cheer" aria-label="Learn about school cheer training"
+         class="flex flex-wrap items-center justify-between gap-4 rounded-md bg-midnight px-8 py-7 text-white transition hover:bg-midnight-soft">
+        <span class="flex flex-wrap items-baseline gap-x-5 gap-y-2">
+          <span class="font-display text-[32px] font-extrabold uppercase leading-none">School Cheer</span>
+          <!-- DECAP CMS: pages/school-cheer.md → summary -->
+          <span class="text-white/75">Tumbling and stunt training for middle and high school squads.</span>
+        </span>
+        <span class="font-bold uppercase tracking-wide text-scarlet-light">Learn more <span aria-hidden="true">→</span></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ 5. ABOUT / FACILITY ============ -->
+  <!-- DECAP CMS: home.md frontmatter → about.heading, about.body, about.images[] -->
+  <section id="facility" aria-labelledby="facility-heading" class="bg-midnight pb-[104px] pt-24 text-white">
+    <div class="mx-auto max-w-site px-6">
+      <div class="mb-12 grid items-end gap-12 lg:grid-cols-2">
+        <h2 id="facility-heading" class="font-display text-[clamp(3rem,6vw,5rem)] font-extrabold uppercase leading-[0.88] tracking-tight">Built to fly.<br /><span class="text-scarlet-light">Coached to land.</span></h2>
+        <p class="text-lg leading-relaxed text-white/80 text-pretty">A full-time facility with world-champion choreographers and coaches who teach every skill step by step, spot it, and only move on when your athlete is ready.</p>
+      </div>
+      <div class="grid gap-4 md:grid-cols-3">
+        <img src="/images/facility/gym-floor.jpg" loading="lazy" width="1600" height="800"
+             alt="Bright wide view of the Raider Xtreme gym with in-ground trampolines, a 50-foot tumble track and the foam pit"
+             class="h-[340px] w-full rounded-lg bg-midnight-soft object-cover md:col-span-2" />
+        <img src="/images/facility/coaches.jpg" loading="lazy" width="800" height="800"
+             alt="Raider Xtreme coaching staff smiling together on the spring floor in matching team shirts"
+             class="h-[340px] w-full rounded-lg bg-midnight-soft object-cover" />
+      </div>
+      <!-- DECAP CMS: Facility Stats collection loop -->
+      <ul class="mt-10 grid border-t border-white/20 sm:grid-cols-2 lg:grid-cols-4">
+        {facilityStats.map((f) => (
+          <li class="pr-6 pt-6"><p class="font-display text-[44px] font-extrabold leading-none text-scarlet-light">{f.stat}</p><p class="mt-1.5 text-white/80">{f.label}</p></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</Base>

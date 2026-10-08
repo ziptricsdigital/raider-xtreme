@@ -1,0 +1,15 @@
+---
+/** Overlapping key-facts card under PageHero. DECAP CMS: page frontmatter → facts[{stat,label}] */
+interface Props { facts: { stat: string; label: string }[] }
+const { facts } = Astro.props;
+---
+<div class="relative z-10 mx-auto -mt-[72px] max-w-site px-6">
+  <dl class="grid gap-px overflow-hidden rounded-lg bg-[#E6E3DE] shadow-2xl sm:grid-cols-2 lg:grid-cols-4">
+    {facts.map((f) => (
+      <div class="flex flex-col-reverse bg-white p-6">
+        <dt class="mt-1.5 text-sm font-semibold leading-snug">{f.label}</dt>
+        <dd class="font-display text-[38px] font-extrabold leading-none text-scarlet">{f.stat}</dd>
+      </div>
+    ))}
+  </dl>
+</div>

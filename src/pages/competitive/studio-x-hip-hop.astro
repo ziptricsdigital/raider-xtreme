@@ -1,0 +1,38 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProgramHero from '../../components/ProgramHero.astro';
+import FactStrip from '../../components/FactStrip.astro';
+import Section from '../../components/Section.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import DiamondList from '../../components/DiamondList.astro';
+import InfoCard from '../../components/InfoCard.astro';
+import { site, links } from '../../data/site';
+const featuredVideo = ''; // TODO: YouTube ID for Studio X team performance — hidden until set
+const facts = [{ stat: '4 years', label: 'Straight at Dance Worlds & Summit' }, { stat: 'World-class', label: 'Champion instructors & choreographers' }, { stat: 'All levels', label: 'First class to national stage' }, { stat: '3 ways', label: 'Full-year, half-year or weekly' }];
+const ways = [
+  { tag: 'Full-year', title: 'Competitive Team', body: 'Train all season and compete on the national stage.', cta: { label: 'Info Packet', href: links.competitivePacket, external: true } },
+  { tag: 'Sept–Feb', title: 'Half-Year Team', body: 'The full-year experience without the time, travel or financial commitment.', cta: { label: 'Register', href: links.enrollHalfYear, external: true } },
+  { tag: 'Weekly', title: 'Hip-Hop Class', body: 'Recreational choreography and tricking, any time of year.', cta: { label: 'Enroll', href: links.enrollClasses, external: true } },
+];
+---
+<Base theme="studio" title="Studio X Hip-Hop Dance Teams & Classes in Lubbock | Raider Xtreme" description="Studio X: competitive and recreational hip-hop dance in Lubbock, TX. Four straight years at USASF Dance Worlds and Varsity All-Star Dance Summit.">
+  <ProgramHero variant="badge" crumbs={[{ label: 'Competitive', href: '/competitive' }, { label: 'Studio X Hip-Hop' }]} kicker="Competitive &amp; recreational dance" title="Studio X" accent="Hip-Hop" logo={{ src: '/images/studio-x-logo.png', alt: 'Studio X logo', width: 202, height: 145 }}
+    intro="Raider Xtreme’s one-of-a-kind hip-hop program. Taught by world-champion instructors and choreographers, successful at every age and experience level."
+    ctas={[{ label: 'Info Packet & Contract', href: links.competitivePacket, external: true }, { label: 'Weekly Hip-Hop Class', href: '/classes#hip-hop', variant: 'outline' }]} />
+  <FactStrip facts={facts} />
+  <Section kicker="About Studio X" title="One of the best in the nation">
+    <div class="grid items-start gap-8 md:grid-cols-2">
+      <div>
+        <p class="mb-4 text-lg leading-relaxed text-ink/90 text-pretty">Our full-year competitive teams have competed at the USASF Dance World Championship and the Varsity All-Star Dance Summit for four consecutive years and counting.</p>
+        <p class="mb-4 text-lg leading-relaxed text-ink/90 text-pretty">With our unique hip-hop instruction and longevity, we’re able to be successful with every age and experience level.</p>
+      </div>
+      <!-- DECAP CMS: page.featuredVideo (YouTube ID). Use a lite-youtube facade so no iframe loads until click. -->
+      {featuredVideo && <lite-youtube videoid={featuredVideo} playlabel="Play: Studio X team performance" class="aspect-video w-full overflow-hidden rounded-lg bg-midnight"></lite-youtube>}
+    </div>
+  </Section>
+  <Section kicker="Ways to dance" title="Pick your pace" tone="bone">
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{ways.map((w) => <InfoCard {...w} />)}</div>
+  </Section>
+  <CtaBand title="Ready to dance?" text="Not sure which level fits? Book a class and our coaches will help place your dancer."
+    primary={{ label: 'Enroll in a Class', href: links.enrollClasses, external: true }} secondary={{ label: 'Ask a Coach', href: '#contact' }} />
+</Base>

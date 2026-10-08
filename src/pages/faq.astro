@@ -1,0 +1,63 @@
+---
+/** DECAP CMS: FAQ collection → src/content/faq/*.md (fields: group, question, answer, order). Emits FAQPage schema. */
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import FactStrip from '../components/FactStrip.astro';
+import Section from '../components/Section.astro';
+import CtaBand from '../components/CtaBand.astro';
+import DiamondList from '../components/DiamondList.astro';
+import InfoCard from '../components/InfoCard.astro';
+import { site, links } from '../data/site';
+const groups = [
+  { title: 'Getting started', items: [
+    ['At what age can we start?', 'We start at age 3, and children must be potty-trained.'],
+    ['Does my child need any skills?', 'No! Developmental classes are for beginners and kids building skills at a non-competitive level. Coaches adapt to each child.'],
+    ['Can we try a class first?', 'Yes. Create an account online and pay a one-time trial fee, then let the front office know which class to list you in.'],
+    ['Will they be behind if we start mid-year?', 'No. Each child works on the skills they need with their instructor.'],
+    ['What should they wear?', 'Fitted clothing — a sports bra, t-shirt and shorts or spandex. Shoes aren’t required.'],
+    ['When is the office open?', `${site.officeHours}.`],
+  ]},
+  { title: 'Classes & tuition', items: [
+    ['How much are classes?', '$65–$85 per month depending on the class, plus an annual registration fee.'],
+    ['When is tuition due?', 'The first business day of each month. A $35 late fee applies after the 15th.'],
+    ['When are classes held?', 'Monday through Thursday at several times. See the live schedule in the Parent Portal.'],
+    ['What’s the coach-to-athlete ratio?', 'One instructor for every five children.'],
+    ['Can we make up a missed class?', 'Yes, when there’s room. Tell the office so we can list your child as a make-up.'],
+    ['How do private lessons work?', 'Private lessons are for enrolled athletes. Call the office and your chosen instructor will reach out. You pay the instructor directly; each sets their own fee.'],
+    ['What if we stop classes?', 'On auto-pay, drop in writing before the next month’s draft. Charges already run are non-refundable.'],
+  ]},
+  { title: 'Competitive', items: [
+    ['When are full-year sign-ups?', 'Early sign-ups begin in March each year, with evaluations in May.'],
+    ['When are half-year sign-ups?', 'Sign-ups begin in August; the season runs through the end of February.'],
+    ['What skills do I need to try out?', 'Every team is different — we evaluate each athlete and place them on the right team.'],
+  ]},
+  { title: 'Parties & Fun Friday', items: [
+    ['How do I book a birthday party?', 'Availability and booking are online — see the Birthday Parties page.'],
+    ['When is Fun Friday?', 'Every Friday, 6:00–10:00 PM. It’s walk-in, with check-in starting at 6:00 PM.'],
+  ]},
+];
+const schema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: groups.flatMap((g) => g.items.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } }))) };
+---
+<Base title="FAQ | Raider Xtreme Lubbock" description="Ages, tuition, trials, what to wear, competitive sign-ups, birthday parties and Fun Friday — answers to the questions Raider Xtreme families ask most.">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <PageHero crumbs={[{ label: 'FAQ' }]} kicker="Answers for families" title="Questions?" accent="Answered."
+    intro="The things parents ask us most. Don’t see yours? Call the front office or send us a note."
+    ctas={[{ label: `Call ${site.phone}`, href: site.phoneHref, variant: 'outline' }, { label: 'Send a Message', href: '#contact', variant: 'outline' }]} />
+  <div class="h-16" aria-hidden="true"></div>
+  {groups.map((g, gi) => (
+    <Section kicker={`0${gi + 1}`} title={g.title.replace('&', '&amp;')} tone={gi % 2 ? 'bone' : 'white'}>
+      <div class="border-t-2 border-midnight">
+        {g.items.map(([q, a]) => (
+          <details class="group border-b border-black/15">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-lg font-bold">
+              {q}<span aria-hidden="true" class="text-2xl text-scarlet transition group-open:rotate-45">+</span>
+            </summary>
+            <p class="max-w-2xl pb-5 leading-relaxed text-ink-muted">{a}</p>
+          </details>
+        ))}
+      </div>
+    </Section>
+  ))}
+  <CtaBand title="Still curious?" text="Come see the gym for yourself — tours are always welcome."
+    primary={{ label: 'Schedule a Tour', href: '#contact' }} secondary={{ label: 'Call Us', href: site.phoneHref }} />
+</Base>
