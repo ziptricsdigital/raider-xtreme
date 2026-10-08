@@ -17,7 +17,7 @@ export default {
         ink: { DEFAULT: '#111114', muted: '#55555C' },
       },
       fontFamily: {
-        display: ['"Barlow Condensed Variable"', '"Arial Narrow"', ...defaultTheme.fontFamily.sans],
+        display: ['"Barlow Condensed"', '"Arial Narrow"', ...defaultTheme.fontFamily.sans],
         sans: ['system-ui', '-apple-system', '"Segoe UI"', 'Helvetica', 'Arial', 'sans-serif'],
       },
       maxWidth: { site: '76rem' },
