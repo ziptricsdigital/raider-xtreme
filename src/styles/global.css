@@ -9,3 +9,12 @@ summary::-webkit-details-marker { display: none; }
 :root { --accent: 200 16 46; --accent-dark: 160 13 37; --accent-tint: 251 237 239; --accent-light: 255 77 99; }
 .theme-studio { --accent: 168 30 42; --accent-dark: 130 22 31; --accent-tint: 248 233 234; --accent-light: 255 107 118; }
 .theme-air { --accent: 59 118 200; --accent-dark: 42 90 160; --accent-tint: 234 241 251; --accent-light: 141 180 232; }
+
+/* Sponsor marquee (home "Supported by", below lg) */
+@keyframes sponsor-scroll { to { transform: translateX(-50%); } }
+.sponsor-track { animation: sponsor-scroll 30s linear infinite; }
+.sponsor-marquee:hover .sponsor-track, .sponsor-marquee:active .sponsor-track { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .sponsor-track { animation: none; }
+  .sponsor-marquee { overflow-x: auto; }
+}

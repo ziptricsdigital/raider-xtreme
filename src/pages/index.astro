@@ -137,7 +137,20 @@ const facilityStats = [
       </ul>
       <div class="flex flex-col gap-6 pt-8 lg:flex-row lg:items-center lg:gap-12">
         <p class="text-center text-xs font-bold uppercase tracking-[0.16em] text-ink-muted lg:text-left">Supported by</p>
-        <ul class="grid flex-1 grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
+        <!-- Below lg: single auto-scrolling row (two identical copies for a seamless loop; swipeable when reduced motion is on) -->
+        <div class="sponsor-marquee overflow-hidden lg:hidden [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]">
+          <div class="sponsor-track flex w-max">
+            {[0, 1].map((copy) => (
+              <ul class="flex shrink-0 items-center gap-12 pr-12" aria-hidden={copy ? 'true' : undefined}>
+                {sponsors.map((s) => (
+                  <li class="flex h-14 shrink-0 items-center"><img src={s.logo} alt={copy ? '' : `${s.name} logo`} loading="lazy" class={`${s.h} w-auto max-w-[8.5rem] object-contain opacity-75 grayscale`} /></li>
+                ))}
+              </ul>
+            ))}
+          </div>
+        </div>
+        <!-- lg+: static 5-up row -->
+        <ul class="hidden flex-1 grid-cols-5 gap-x-6 lg:grid">
           {sponsors.map((s) => (
             <li class="flex h-16 items-center justify-center"><img src={s.logo} alt={`${s.name} logo`} loading="lazy" class={`${s.h} w-auto max-w-[8.5rem] object-contain opacity-75 grayscale transition hover:opacity-100 hover:grayscale-0`} /></li>
           ))}
