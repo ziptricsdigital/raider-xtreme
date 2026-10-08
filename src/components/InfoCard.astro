@@ -1,11 +1,10 @@
 ---
-import Photo from './Photo.astro';
 /** Loopable card for classes / disciplines / add-ons. */
 interface Props { tag?: string; title: string; body: string; image?: string; imageAlt?: string; cta?: { label: string; href: string; external?: boolean } }
 const { tag, title, body, image, imageAlt = '', cta } = Astro.props;
 ---
 <article class="flex flex-col overflow-hidden rounded-lg border border-black/10 bg-white">
-  {image && <Photo src={image} alt={imageAlt} loading="lazy" width="640" height="400" class="m-3 mb-0 aspect-[16/10] w-[calc(100%-1.5rem)] rounded-md bg-bone object-cover" />}
+  {image && <div role="img" aria-label={imageAlt} class="m-3 mb-0 aspect-[16/10] w-[calc(100%-1.5rem)] rounded-md flex items-end overflow-hidden p-3 [background:repeating-linear-gradient(135deg,#E6E3DE_0_12px,#EEECE8_12px_24px)]"><span class="max-w-full rounded-sm bg-white px-2 py-1 font-mono text-[11px] uppercase leading-snug text-ink-muted">{imageAlt}</span></div>}
   <div class="flex flex-1 flex-col gap-2.5 p-6">
     {tag && <p class="text-xs font-bold uppercase tracking-[0.14em] text-scarlet" set:html={tag} />}
     <h3 class="font-display text-3xl font-extrabold uppercase leading-none" set:html={title} />

@@ -1,5 +1,4 @@
 ---
-import Photo from '../components/Photo.astro';
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import FactStrip from '../components/FactStrip.astro';
@@ -18,7 +17,7 @@ const facts = [{ stat: 'Schools', label: 'Classes & grade levels' }, { stat: 'Ch
   <Section kicker="Every trip includes" title="Full gym access">
     <div class="grid items-start gap-8 md:grid-cols-2">
       <DiamondList cols={1} items={['Supervised playtime', 'Trampolines', 'Tumble track', 'Rope swing &amp; foam pit', 'Inflatables', 'Xtreme obstacle course inflatable', 'Raider Xtreme staff supervision']} />
-      <Photo src="/images/field-trips/group.jpg" loading="lazy" width="800" height="600" alt="Elementary school group in matching field-trip shirts cheering on the Raider Xtreme gym floor" class="aspect-[4/3] w-full rounded-lg bg-bone object-cover" />
+      <div role="img" aria-label="Elementary school group in matching field-trip shirts cheering on the Raider Xtreme gym floor" class="aspect-[4/3] w-full rounded-lg flex items-end overflow-hidden p-3 [background:repeating-linear-gradient(135deg,#E6E3DE_0_12px,#EEECE8_12px_24px)]"><span class="max-w-full rounded-sm bg-white px-2 py-1 font-mono text-[11px] uppercase leading-snug text-ink-muted">Elementary school group in matching field-trip shirts cheering on the Raider Xtreme gym floor</span></div>
     </div>
   </Section>
   <CtaBand title="Plan your trip" text="Tell us your group size and preferred dates — we’ll send availability and pricing."

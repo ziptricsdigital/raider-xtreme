@@ -1,5 +1,4 @@
 ---
-import Photo from '../components/Photo.astro';
 /** /parties — legacy birthday-parties.html + entertainment.html */
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
@@ -34,7 +33,7 @@ const addons = [{ title: 'Pizza', body: 'Let us handle the food.' }, { title: 'M
         </div>
       ))}
     </dl>
-      <Photo src="/images/parties/party-room.jpg" loading="lazy" width="640" height="800" alt="Birthday girl blowing out candles at a party table surrounded by friends in the Raider Xtreme party room" class="aspect-[4/5] w-full rounded-lg bg-bone object-cover" />
+      <div role="img" aria-label="Birthday girl blowing out candles at a party table surrounded by friends in the Raider Xtreme party room" class="aspect-[4/5] w-full rounded-lg flex items-end overflow-hidden p-3 [background:repeating-linear-gradient(135deg,#E6E3DE_0_12px,#EEECE8_12px_24px)]"><span class="max-w-full rounded-sm bg-white px-2 py-1 font-mono text-[11px] uppercase leading-snug text-ink-muted">Birthday girl blowing out candles at a party table surrounded by friends in the Raider Xtreme party room</span></div>
     </div>
   </Section>
   <Section kicker="The gym is the party" title="What they’ll play on" tone="bone">
