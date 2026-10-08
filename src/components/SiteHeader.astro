@@ -26,11 +26,20 @@ const isActive = (href: string) => href !== '/' && current.startsWith(href);
                class:list={['hover:text-scarlet', isActive(n.href) && 'text-scarlet']}>{n.label}</a></li>
       ))}
     </ul>
-    <details class="relative justify-self-end md:hidden">
+    <details class="relative justify-self-end md:hidden" data-nav-menu>
       <summary aria-label="Open menu" class="cursor-pointer list-none rounded border border-black/15 px-3 py-2 text-sm font-bold uppercase">Menu</summary>
-      <ul class="absolute right-0 mt-2 w-56 rounded-lg bg-white p-2 shadow-xl ring-1 ring-black/5">
-        {primaryNav.flatMap((n) => n.children ?? [n]).map((n) => <li><a href={n.href} aria-label={n.label} class="block rounded px-3 py-2.5 font-semibold hover:bg-bone">{n.label}</a></li>)}
-      </ul>
+      <div class="absolute right-0 mt-2 w-[min(18rem,calc(100vw-3rem))] rounded-lg bg-white p-2 shadow-xl ring-1 ring-black/5">
+        {primaryNav.map((n) => n.children ? (
+          <details class="group border-b border-black/5 last:border-0">
+            <summary class="flex cursor-pointer list-none items-center justify-between rounded px-3 py-3 font-bold hover:bg-bone">{n.label}<span aria-hidden="true" class="text-[10px] transition group-open:rotate-180">▾</span></summary>
+            <ul class="pb-2 pl-3">
+              {n.children.map((c) => <li><a href={c.href} {...(c.external ? ext : {})} class="block rounded px-3 py-2.5 text-[15px] text-ink-muted hover:bg-bone hover:text-scarlet">{c.label}</a></li>)}
+            </ul>
+          </details>
+        ) : (
+          <a href={n.href} class="block rounded px-3 py-3 font-bold hover:bg-bone">{n.label}</a>
+        ))}
+      </div>
     </details>
     <a href={links.enrollClasses} {...ext} aria-label="Enroll in a class online (opens iClassPro in a new tab)"
        class="whitespace-nowrap rounded bg-scarlet px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-scarlet-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-scarlet">Enroll Now</a>

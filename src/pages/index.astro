@@ -25,8 +25,8 @@ const sponsors = [
   { name: 'Citizens State Bank', logo: '/images/sponsors/citizens-state-bank.png', h: 'h-11' },
   { name: 'Double Down Fishing & Rental', logo: '/images/sponsors/double-down-fishing.png', h: 'h-11' },
   { name: 'M4 Trucking', logo: '/images/sponsors/m4-trucking.png', h: 'h-14' },
-  { name: 'MCRT Services, LLC', logo: '/images/sponsors/mcrt-services.png', h: 'h-16' },
-  { name: 'Above & Beyond Beauty', logo: '/images/sponsors/above-beyond-beauty.png', h: 'h-12' },
+  { name: 'MCRT Services, LLC', logo: '/images/sponsors/mcrt-services.png', h: 'h-14' },
+  { name: 'Above & Beyond Beauty', logo: '/images/sponsors/above-beyond-beauty.png', h: 'h-14' },
 ];
 
 /* DECAP CMS: Programs collection → src/content/programs/*.md
@@ -93,8 +93,8 @@ const facilityStats = [
       <img src="/images/hero/hero-competition.jpg" alt="Raider Xtreme all-star flyer beaming at the top of a stunt above her teammates on a competition stage"
            width="1290" height="1612" fetchpriority="high" class="absolute inset-0 h-full w-full object-cover object-[50%_14%]" />
       <div aria-hidden="true" class="absolute inset-0 bg-gradient-to-b from-midnight/0 from-35% to-midnight/90"></div>
-      <div class="relative mx-auto w-full max-w-site px-6 pb-36 pt-32">
-        <p class="mb-5 flex items-center gap-2.5 text-sm font-bold uppercase tracking-[0.16em]"><span aria-hidden="true" class="h-[3px] w-8 bg-scarlet"></span>Cheer · Tumbling · Trampoline · Hip-Hop</p>
+      <div class="relative mx-auto w-full max-w-site px-6 pb-36 pt-16 sm:pt-32">
+        <p class="mb-5 flex items-center gap-2.5 text-xs font-bold uppercase tracking-[0.12em] sm:text-sm sm:tracking-[0.16em]"><span aria-hidden="true" class="h-[3px] w-8 shrink-0 bg-scarlet"></span>Cheer · Tumbling · Trampoline · Hip-Hop</p>
         <!-- The ONLY <h1> on the page -->
         <h1 id="hero-heading" class="font-display text-[clamp(4.5rem,12vw,11.5rem)] font-extrabold uppercase leading-[0.82] tracking-tight">
           Unleash their<br /><span class="text-scarlet-light">potential</span>
@@ -135,11 +135,11 @@ const facilityStats = [
           <li class="flex items-baseline gap-3"><span class="font-display text-[56px] font-extrabold leading-none text-scarlet">{t.stat}</span><span class="max-w-[11rem] text-sm font-semibold leading-snug">{t.label}</span></li>
         ))}
       </ul>
-      <div class="flex flex-wrap items-center gap-x-12 gap-y-6 pt-8">
-        <p class="text-xs font-bold uppercase tracking-[0.16em] text-ink-muted">Supported by</p>
-        <ul class="grid flex-1 grid-cols-2 items-center justify-items-center gap-x-10 gap-y-6 sm:grid-cols-3 lg:grid-cols-5">
+      <div class="flex flex-col gap-6 pt-8 lg:flex-row lg:items-center lg:gap-12">
+        <p class="text-center text-xs font-bold uppercase tracking-[0.16em] text-ink-muted lg:text-left">Supported by</p>
+        <ul class="grid flex-1 grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
           {sponsors.map((s) => (
-            <li><img src={s.logo} alt={`${s.name} logo`} loading="lazy" class={`${s.h} w-auto max-w-[9.5rem] object-contain opacity-75 mix-blend-multiply grayscale transition hover:opacity-100 hover:grayscale-0`} /></li>
+            <li class="flex h-16 items-center justify-center"><img src={s.logo} alt={`${s.name} logo`} loading="lazy" class={`${s.h} w-auto max-w-[8.5rem] object-contain opacity-75 grayscale transition hover:opacity-100 hover:grayscale-0`} /></li>
           ))}
         </ul>
       </div>
