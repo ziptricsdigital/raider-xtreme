@@ -5,7 +5,7 @@ const { current = '/' } = Astro.props as { current?: string };
 const isActive = (href: string) => href !== '/' && current.startsWith(href);
 ---
 <header class="sticky top-0 z-40 border-b border-black/5 bg-white/95 backdrop-blur">
-  <nav aria-label="Primary" class="mx-auto grid max-w-site grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-x-7 px-6 py-3">
+  <nav aria-label="Primary" class="relative mx-auto grid max-w-site grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-x-7 px-6 py-3">
     <a href="/" aria-label="Raider Xtreme home" class="flex items-center gap-3">
       <img src="/images/raider-x-logo.png" alt="Raider Xtreme logo: a red and black X with the word Raider in script" width="56" height="45" class="h-11 w-auto" />
       <span class="hidden font-display text-2xl font-extrabold uppercase leading-none tracking-tight sm:inline">Raider <span class="text-scarlet">Xtreme</span></span>
@@ -26,12 +26,12 @@ const isActive = (href: string) => href !== '/' && current.startsWith(href);
                class:list={['hover:text-scarlet', isActive(n.href) && 'text-scarlet']}>{n.label}</a></li>
       ))}
     </ul>
-    <details class="relative justify-self-end md:hidden" data-nav-menu>
+    <details class="justify-self-end md:hidden" data-nav-menu>
       <summary aria-label="Open menu" class="cursor-pointer list-none rounded border border-black/15 px-3 py-2 text-sm font-bold uppercase">Menu</summary>
-      <div class="absolute right-0 mt-2 w-[min(18rem,calc(100vw-3rem))] rounded-lg bg-white p-2 shadow-xl ring-1 ring-black/5">
+      <div class="absolute inset-x-4 top-full mt-2 max-h-[calc(100vh-8rem)] overflow-y-auto rounded-lg bg-white p-2 shadow-xl ring-1 ring-black/5">
         {primaryNav.map((n) => n.children ? (
           <details class="group border-b border-black/5 last:border-0">
-            <summary class="flex cursor-pointer list-none items-center justify-between rounded px-3 py-3 font-bold hover:bg-bone">{n.label}<span aria-hidden="true" class="text-[10px] transition group-open:rotate-180">▾</span></summary>
+            <summary class="flex cursor-pointer list-none items-center justify-between rounded px-3 py-3 font-bold hover:bg-bone">{n.label}<span aria-hidden="true" class="mr-1 h-2 w-2 -translate-y-0.5 rotate-45 border-b-2 border-r-2 border-current transition group-open:translate-y-0.5 group-open:-rotate-[135deg]"></span></summary>
             <ul class="pb-2 pl-3">
               {n.children.map((c) => <li><a href={c.href} {...(c.external ? ext : {})} class="block rounded px-3 py-2.5 text-[15px] text-ink-muted hover:bg-bone hover:text-scarlet">{c.label}</a></li>)}
             </ul>
