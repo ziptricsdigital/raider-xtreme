@@ -1,6 +1,6 @@
 ---
 /** Base layout — every page gets the utility bar, primary nav and lead-capture footer.
- *  Fonts are self-hosted: npm i @fontsource-variable/barlow-condensed (bundled, no CDN). */
+ *  Barlow Condensed loads from Google Fonts in <head> (all weights). Do NOT re-add @fontsource imports. */
 import '../styles/global.css'; // @tailwind base; @tailwind components; @tailwind utilities;
 import 'lite-youtube-embed/src/lite-yt-embed.css'; // npm i lite-youtube-embed — click-to-load YouTube facade
 import UtilityBar from '../components/UtilityBar.astro';
@@ -16,6 +16,12 @@ const { title, description, path = Astro.url.pathname, theme } = Astro.props;
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#111114" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -27,7 +33,7 @@ const { title, description, path = Astro.url.pathname, theme } = Astro.props;
   <meta property="og:description" content={description} />
   <meta property="og:image" content={new URL('/images/og-default.jpg', site.url).href} />
   <script type="application/ld+json" set:html={JSON.stringify({
-    '@context': 'https://schema.org', '@type': 'SportsActivityLocation', name: site.name,
+    '@context': 'https://schema.org', '@type': 'SportsActivityLocation', name: site.name, logo: new URL('/icon-512.png', site.url).href, image: new URL('/icon-512.png', site.url).href,
     telephone: site.phone, email: site.email, url: site.url,
     address: { '@type': 'PostalAddress', streetAddress: site.street, addressLocality: site.city, addressRegion: site.region, postalCode: site.postal, addressCountry: 'US' },
     openingHours: 'Mo-Th 16:00-19:30',
